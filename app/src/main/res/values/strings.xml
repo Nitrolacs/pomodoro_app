@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pomodoro App</string>
+    <string name="side_bar_button">Side bar button</string>
 </resources>
