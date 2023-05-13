@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context=".TimerConfiguration">
+
+    <ImageButton
+        android:id="@+id/side_bar_button"
+        android:layout_width="58sp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/side_bar_button"
+        android:backgroundTint="@android:color/transparent"
+        android:backgroundTintMode="src_in"
+        android:scaleType="fitXY"
+        android:layout_marginTop="15sp"
+        android:layout_marginStart="15sp"
+        app:srcCompat="@drawable/side_bar_button" />
+
+    <TextView
+        android:id="@+id/title_configuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Настройка конфигурации таймера"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="22sp"
+        android:layout_marginBottom="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/side_bar_button"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/configuration_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_configuration"
+        android:layout_marginTop="20sp"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/field_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Название конфигурации таймера"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="40sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/configuration_focusing_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/configuration_name"
+        android:layout_marginTop="20sp"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/field_focusing_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Время фокусирования в минутах"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="40sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/configuration_rest_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/configuration_focusing_time"
+        android:layout_marginTop="20sp"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/field_rest_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Время отдыха в минутах"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="40sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/configuration_rounds_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/configuration_rest_time"
+        android:layout_marginTop="20sp"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/field_rounds_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Количество циклов"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="40sp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button_save_configuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/configuration_rounds_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46sp"
+        android:text="Сохранить"
+        android:textSize="22sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:contentDescription="@string/start_stop_button" />
+
+</RelativeLayout>
