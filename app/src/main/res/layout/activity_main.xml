@@ -46,6 +46,7 @@
         android:layout_marginTop="15sp" />
 
     <FrameLayout
+        android:id="@+id/timer_frame"
         android:layout_width="300sp"
         android:layout_height="300sp"
         android:layout_below="@id/study_stage_text"
@@ -74,5 +75,56 @@
             android:fontFamily="@font/montserrat_medium" />
         
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/button_stop"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:layout_below="@id/timer_frame"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/circular_white"
+        android:layout_marginTop="36sp"
+        android:src="@drawable/ic_stop" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_menu_bg"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginBottom="20sp">
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_marginHorizontal="15sp"
+            android:contentDescription="sound_on"
+            app:srcCompat="@drawable/sound_on" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="notifications_on"
+            app:srcCompat="@drawable/notifications_on" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_marginHorizontal="15sp"
+            android:contentDescription="clock_setup"
+            app:srcCompat="@drawable/clock_setup" />
+    </LinearLayout>
+
 
 </RelativeLayout>
