@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context=".TimerConfiguration">
+    tools:context=".TimerConfigurationActivity">
 
     <ImageButton
         android:id="@+id/side_bar_button"
@@ -42,7 +42,7 @@
         app:hintTextColor="@color/white">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/field_name"
+            android:id="@+id/field_configuration_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Название конфигурации таймера"
