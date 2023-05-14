@@ -40,7 +40,7 @@
         android:text="Время фокусирования"
         android:gravity="center"
         android:fontFamily="@font/montserrat_medium"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textColor="@color/white"
         android:layout_below="@+id/study_stage_number"
         android:layout_marginTop="15sp" />
@@ -56,13 +56,14 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="300sp"
             android:layout_height="300sp"
-            style="?android:attr/progressBarStyleHorizontal"
             android:background="@drawable/progress_circle_grey"
-            android:progressDrawable="@drawable/progress_circle_color"
             android:indeterminate="false"
-            android:rotation="90" />
+            android:progressDrawable="@drawable/progress_circle_color"
+            android:rotation="-90"
+            android:rotationY="-180" />
 
         <TextView
             android:id="@+id/timer"
@@ -84,11 +85,11 @@
         android:layout_height="80sp"
         android:layout_below="@id/timer_frame"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/circular_white"
         android:layout_marginTop="36sp"
-        android:src="@drawable/ic_stop"
+        android:background="@drawable/circular_white"
+        android:contentDescription="@string/start_stop_button"
         android:scaleType="fitXY"
-        android:contentDescription="@string/start_stop_button" />
+        android:src="@drawable/ic_stop" />
     
     <LinearLayout
         android:layout_width="match_parent"

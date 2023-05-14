@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_configuration"
         android:layout_marginTop="20sp"
+        android:layout_marginHorizontal="40sp"
         app:boxStrokeColor="@color/white"
         app:hintTextColor="@color/white">
 
@@ -47,8 +48,7 @@
             android:layout_height="wrap_content"
             android:hint="Название конфигурации таймера"
             android:inputType="text"
-            android:textColor="@color/white"
-            android:layout_marginHorizontal="40sp"/>
+            android:textColor="@color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/configuration_name"
         android:layout_marginTop="20sp"
+        android:layout_marginHorizontal="40sp"
         app:boxStrokeColor="@color/white"
         app:hintTextColor="@color/white">
 
@@ -67,8 +68,7 @@
             android:layout_height="wrap_content"
             android:hint="Время фокусирования в минутах"
             android:inputType="number"
-            android:textColor="@color/white"
-            android:layout_marginHorizontal="40sp"/>
+            android:textColor="@color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/configuration_focusing_time"
         android:layout_marginTop="20sp"
+        android:layout_marginHorizontal="40sp"
         app:boxStrokeColor="@color/white"
         app:hintTextColor="@color/white">
 
@@ -88,7 +89,7 @@
             android:hint="Время отдыха в минутах"
             android:inputType="number"
             android:textColor="@color/white"
-            android:layout_marginHorizontal="40sp"/>
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +101,8 @@
         android:layout_below="@id/configuration_rest_time"
         android:layout_marginTop="20sp"
         app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
+        app:hintTextColor="@color/white"
+        android:layout_marginHorizontal="40sp">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/field_rounds_number"
@@ -108,8 +110,7 @@
             android:layout_height="wrap_content"
             android:hint="Количество циклов"
             android:inputType="number"
-            android:textColor="@color/white"
-            android:layout_marginHorizontal="40sp"/>
+            android:textColor="@color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,6 +125,8 @@
         android:text="Сохранить"
         android:textSize="22sp"
         android:fontFamily="@font/montserrat_medium"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@color/white"
         android:contentDescription="@string/start_stop_button" />
 
 </RelativeLayout>

@@ -20,14 +20,6 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         binding = ActivityTimerConfigurationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.sideBarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TimerConfigurationActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
         binding.buttonSaveConfiguration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
