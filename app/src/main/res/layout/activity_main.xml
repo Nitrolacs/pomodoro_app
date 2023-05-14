@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/study_stage_number"
-        android:layout_width="68sp"
-        android:layout_height="68sp"
+        android:layout_width="86sp"
+        android:layout_height="86sp"
         android:text="1/5"
         android:gravity="center"
         android:fontFamily="@font/montserrat_medium"
@@ -81,8 +81,8 @@
 
     <ImageButton
         android:id="@+id/button_stop"
-        android:layout_width="80sp"
-        android:layout_height="80sp"
+        android:layout_width="86sp"
+        android:layout_height="86sp"
         android:layout_below="@id/timer_frame"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36sp"

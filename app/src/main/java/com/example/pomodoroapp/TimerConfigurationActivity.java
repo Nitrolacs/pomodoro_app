@@ -11,7 +11,6 @@ import com.example.pomodoroapp.databinding.ActivityTimerConfigurationBinding;
 
 public class TimerConfigurationActivity extends AppCompatActivity {
 
-    // ViewBinding. activity_main ==> ActivityMainBinding
     private ActivityTimerConfigurationBinding binding;
 
     @Override
@@ -30,12 +29,25 @@ public class TimerConfigurationActivity extends AppCompatActivity {
 
                 if (!configurationName.isEmpty() && !focusingTime.isEmpty() && !restTime.isEmpty()
                         && !roundsNumber.isEmpty()) {
-                    Intent intent = new Intent(TimerConfigurationActivity.this, MainActivity.class);
-                    intent.putExtra("name", configurationName);
-                    intent.putExtra("focus", Integer.parseInt(focusingTime));
-                    intent.putExtra("rest", Integer.parseInt(restTime));
-                    intent.putExtra("rounds", Integer.parseInt(roundsNumber));
-                    startActivity(intent);
+
+                    if (InputChecker.getInputChecker().checkData(configurationName,
+                            Integer.parseInt(focusingTime),
+                            Integer.parseInt(restTime),
+                            Integer.parseInt(roundsNumber))) {
+                        Intent intent = new Intent(TimerConfigurationActivity.this, MainActivity.class);
+                        intent.putExtra("name", configurationName);
+                        intent.putExtra("focus", Integer.parseInt(focusingTime));
+                        intent.putExtra("rest", Integer.parseInt(restTime));
+                        intent.putExtra("rounds", Integer.parseInt(roundsNumber));
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(TimerConfigurationActivity.this,
+                                "Введены неверные значения.",
+                                Toast.LENGTH_SHORT).show();
+                        binding.fieldConfigurationName.setError("Введено неверное значение");
+
+                    }
+
                 } else {
                     Toast.makeText(TimerConfigurationActivity.this, "Заполните все поля",
                             Toast.LENGTH_SHORT).show();

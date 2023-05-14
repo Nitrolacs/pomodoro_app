@@ -13,7 +13,6 @@ import com.example.pomodoroapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    // ViewBinding. activity_main ==> ActivityMainBinding
     private ActivityMainBinding binding;
 
     private String nameConfiguration = null;
