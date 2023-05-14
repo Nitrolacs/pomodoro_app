@@ -6,16 +6,44 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pomodoroapp.databinding.ActivityTimerConfigurationBinding;
+import com.example.pomodoroapp.singleton.InputChecker;
 
 import java.util.Objects;
 
-
+/**
+ * Класс для настройки конфигурации таймера
+ */
 public class TimerConfigurationActivity extends AppCompatActivity {
 
+    /**
+     * Объект привязки, который содержит ссылки на представления в макете activity_timer_configuration.
+     */
     private ActivityTimerConfigurationBinding binding;
 
-    private void startMainActivity(String configurationName, String focusingTime, String restTime,
-                                   String roundsNumber) {
+    /**
+     * Название конфигурации
+     */
+    private String configurationName;
+
+    /**
+     * Время фокусирования
+     */
+    private String focusingTime;
+
+    /**
+     * Время отдыха
+     */
+    private String restTime;
+
+    /**
+     * Количество циклов
+     */
+    private String roundsNumber;
+
+    /**
+     * Запускает Activity с фокусировочным таймером
+     */
+    private void startMainActivity() {
         Intent intent = new Intent(TimerConfigurationActivity.this, MainActivity.class);
         intent.putExtra("name", configurationName.trim());
         intent.putExtra("focus", Integer.parseInt(focusingTime));
@@ -24,8 +52,10 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void checkInput(String configurationName, String focusingTime, String restTime,
-                       String roundsNumber) {
+    /**
+     * Вызывает проверку параметров конфигурации таймера
+     */
+    private void checkInput() {
         // Получаем массив непрошедших проверку параметров
         String[] invalidParameters = InputChecker.getInputChecker().checkData(configurationName,
                 focusingTime, restTime, roundsNumber);
@@ -53,10 +83,23 @@ public class TimerConfigurationActivity extends AppCompatActivity {
                 }
             }
         } else {
-            startMainActivity(configurationName, focusingTime, restTime, roundsNumber);
+            startMainActivity();
         }
     }
 
+    /**
+     * Получает значения из полей ввода
+     */
+    private void getFieldsValues() {
+        configurationName = Objects.requireNonNull(binding.fieldConfigurationName.getText()).toString();
+        focusingTime = Objects.requireNonNull(binding.fieldFocusingTime.getText()).toString();
+        restTime = Objects.requireNonNull(binding.fieldRestTime.getText()).toString();
+        roundsNumber = Objects.requireNonNull(binding.fieldRoundsNumber.getText()).toString();
+    }
+
+    /**
+     * Вызывается при создании TimerConfigurationActivity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +107,8 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.buttonSaveConfiguration.setOnClickListener(v -> {
-            String configurationName = Objects.requireNonNull(binding.fieldConfigurationName.getText()).toString();
-            String focusingTime = Objects.requireNonNull(binding.fieldFocusingTime.getText()).toString();
-            String restTime = Objects.requireNonNull(binding.fieldRestTime.getText()).toString();
-            String roundsNumber = Objects.requireNonNull(binding.fieldRoundsNumber.getText()).toString();
-
-            checkInput(configurationName, focusingTime, restTime, roundsNumber);
+            getFieldsValues();
+            checkInput();
         });
     }
 }
