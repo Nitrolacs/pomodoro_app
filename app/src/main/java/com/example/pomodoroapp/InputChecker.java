@@ -1,5 +1,8 @@
 package com.example.pomodoroapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Класс для проверки ввода пользователя, здесь используется шаблон проектирования Singleton
  */
@@ -32,21 +35,36 @@ public class InputChecker {
     /**
      * Проверяет введённые пользователем данные
      *
-     * @param
-     * @param
+     * @param configurationName Название конфигурации
+     * @param focusingTime Время фокусирования
+     * @param restTime Время отдыха
+     * @param roundsNumber Количество циклов
      */
-    public boolean checkData(String configurationName, int focusingTime, int restTime,
-                             int roundsNumber) {
+    public String[] checkData(String configurationName, String focusingTime, String restTime,
+                             String roundsNumber) {
+        // Создаем пустой список для хранения названий непрошедших проверку параметров
+        List<String> invalidParameters = new ArrayList<>();
+
         if (configurationName.trim().isEmpty()) {
-            return false;
-        }
-        if (focusingTime == 0 || focusingTime > 60) {
-            return false;
-        }
-        if (restTime == 0 || restTime > 60) {
-            return false;
+            invalidParameters.add("configurationName");
         }
 
-        return roundsNumber != 0 && roundsNumber <= 20;
+        if (focusingTime.isEmpty() || Integer.parseInt(focusingTime) == 0 ||
+                Integer.parseInt(focusingTime) > 60) {
+            invalidParameters.add("focusingTime");
+        }
+
+        if (restTime.isEmpty() || Integer.parseInt(restTime) == 0 ||
+                Integer.parseInt(restTime) > 60) {
+            invalidParameters.add("restTime");
+        }
+
+        if (roundsNumber.isEmpty() || Integer.parseInt(roundsNumber) == 0 ||
+                Integer.parseInt(roundsNumber) > 20) {
+            invalidParameters.add("roundsNumber");
+        }
+
+        // Преобразуем список в массив и возвращаем его
+        return invalidParameters.toArray(new String[0]);
     }
 }
