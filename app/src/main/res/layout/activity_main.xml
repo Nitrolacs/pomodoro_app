@@ -131,5 +131,20 @@
             app:srcCompat="@drawable/clock_setup" />
     </LinearLayout>
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:menu="@menu/main_menu"
+            app:headerLayout="@layout/header"
+            android:layout_gravity="start" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
 
 </RelativeLayout>

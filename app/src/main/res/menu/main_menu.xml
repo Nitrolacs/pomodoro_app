@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/configuration"
+        android:icon="@drawable/ic_configuration"
+        android:title="Конфигурация таймера" />
+    <item
+        android:id="@+id/cutomization"
+        android:icon="@drawable/ic_customization"
+        android:title="Кастомизация таймера" />
+    <item
+        android:id="@+id/information"
+        android:icon="@drawable/ic_information"
+        android:title="Информация" />
+</menu>
