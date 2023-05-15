@@ -6,8 +6,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pomodoroapp.databinding.ActivityTimerConfigurationBinding;
-import com.example.pomodoroapp.singleton.InputChecker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,22 +24,22 @@ public class TimerConfigurationActivity extends AppCompatActivity {
     /**
      * Название конфигурации
      */
-    private String configurationName;
+    private static String configurationName;
 
     /**
      * Время фокусирования
      */
-    private String focusingTime;
+    private static String focusingTime;
 
     /**
      * Время отдыха
      */
-    private String restTime;
+    private static String restTime;
 
     /**
      * Количество циклов
      */
-    private String roundsNumber;
+    private static String roundsNumber;
 
     /**
      * Запускает Activity с фокусировочным таймером
@@ -57,8 +58,7 @@ public class TimerConfigurationActivity extends AppCompatActivity {
      */
     private void checkInput() {
         // Получаем массив непрошедших проверку параметров
-        String[] invalidParameters = InputChecker.getInputChecker().checkData(configurationName,
-                focusingTime, restTime, roundsNumber);
+        String[] invalidParameters = InputChecker.checkData();
 
         // Проверяем, что массив не пустой
         if (invalidParameters.length > 0) {
@@ -96,6 +96,43 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         restTime = Objects.requireNonNull(binding.fieldRestTime.getText()).toString();
         roundsNumber = Objects.requireNonNull(binding.fieldRoundsNumber.getText()).toString();
     }
+
+    /**
+     * Класс для проверки ввода пользователя.
+     */
+    static class InputChecker {
+
+        /**
+         * Проверяет введённые пользователем данные
+         */
+        private static String[] checkData() {
+            // Создаем пустой список для хранения названий непрошедших проверку параметров
+            List<String> invalidParameters = new ArrayList<>();
+
+            if (configurationName.trim().isEmpty()) {
+                invalidParameters.add("configurationName");
+            }
+
+            if (focusingTime.isEmpty() || Integer.parseInt(focusingTime) == 0 ||
+                    Integer.parseInt(focusingTime) > 60) {
+                invalidParameters.add("focusingTime");
+            }
+
+            if (restTime.isEmpty() || Integer.parseInt(restTime) == 0 ||
+                    Integer.parseInt(restTime) > 60) {
+                invalidParameters.add("restTime");
+            }
+
+            if (roundsNumber.isEmpty() || Integer.parseInt(roundsNumber) == 0 ||
+                    Integer.parseInt(roundsNumber) > 20) {
+                invalidParameters.add("roundsNumber");
+            }
+
+            // Преобразуем список в массив и возвращаем его
+            return invalidParameters.toArray(new String[0]);
+        }
+    }
+
 
     /**
      * Вызывается при создании TimerConfigurationActivity

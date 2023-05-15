@@ -1,40 +1,17 @@
-package com.example.pomodoroapp.singleton;
+package com.example.pomodoroapp;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс для проверки ввода пользователя, здесь используется шаблон проектирования Singleton.
- * Цель:
- * Гарантировать, что у класса будет только один единственный экземпляр и к нему будет
- * предоставлена глобальная точка доступа.
- * Для чего используется:
- * Для создания единственного экземпляра определённого класса.
+ * Класс для проверки ввода пользователя.
  */
 public class InputChecker {
-    /**
-     * Создаём экземпляр
-     */
-    private static InputChecker inputChecker;
-
-    /**
-     * Возвращает экземпляр InputChecker
-     *
-     * @return экземпляр InputChecker
-     */
-    public static InputChecker getInputChecker() {
-        if (inputChecker == null) {
-            inputChecker = new InputChecker();
-        }
-
-        return inputChecker;
-    }
 
     /**
      * Приватный пустой конструктор
      */
     private InputChecker() {
-
     }
 
     /**
@@ -45,7 +22,7 @@ public class InputChecker {
      * @param restTime Время отдыха
      * @param roundsNumber Количество циклов
      */
-    public String[] checkData(String configurationName, String focusingTime, String restTime,
+    public static String[] checkData(String configurationName, String focusingTime, String restTime,
                              String roundsNumber) {
         // Создаем пустой список для хранения названий непрошедших проверку параметров
         List<String> invalidParameters = new ArrayList<>();
