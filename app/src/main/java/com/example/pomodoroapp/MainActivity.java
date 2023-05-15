@@ -35,6 +35,28 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mp;
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        if (intent.hasExtra("name") || intent.hasExtra("focus") ||
+                intent.hasExtra("rest") || intent.hasExtra("rounds")) {
+            nameConfiguration = intent.getStringExtra("name");
+            focusMinutes = intent.getIntExtra("focus", 0) * 60 * 1000;
+            restMinutes = intent.getIntExtra("rest", 0) * 60 * 1000;
+            roundsCount = intent.getIntExtra("rounds", 0);
+            startTimerSetting();
+        }
+    }
+
+    private void startTimerSetting() {
+        // Set Rounds Text
+        binding.studyStageNumber.setText(mRound + "/" + roundsCount);
+        // Start Timer
+        setStartTimer();
+        // Reset Button
+        binding.buttonStop.setOnClickListener(v -> resetOrStart());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +67,14 @@ public class MainActivity extends AppCompatActivity {
         binding.sideBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (focusMinutes != null && !isRest) {
+                    resetOrStart();
+                }
+
+                Intent intent = new Intent(MainActivity.this, TimerConfigurationActivity.class);
+                startActivity(intent);
             }
         });
-
-        // Receive Extras
-        nameConfiguration = getIntent().getStringExtra("name");
-        focusMinutes = getIntent().getIntExtra("focus", 0) * 60 * 1000;
-        restMinutes = getIntent().getIntExtra("rest", 0) * 60 * 1000;
-        roundsCount = getIntent().getIntExtra("rounds", 0);
-        // Set Rounds Text
-        binding.studyStageNumber.setText(mRound + "/" + roundsCount);
-        // Start Timer
-        setStartTimer();
-        // Reset Button
-        binding.buttonStop.setOnClickListener(v -> resetOrStart());
     }
 
     // Set Rest Timer
@@ -156,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Rest Whole Attributes in MainActivity
     private void clearAttribute() {
-        binding.studyStageText.setText("Нажми кнопку старта для повтора");
+        binding.studyStageText.setText("Нажми кнопку старта для запуска");
         binding.buttonStop.setImageResource(R.drawable.ic_play);
         binding.progressBar.setProgress(0);
         binding.timer.setText("0");

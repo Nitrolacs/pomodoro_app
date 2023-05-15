@@ -50,6 +50,7 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         intent.putExtra("focus", Integer.parseInt(focusingTime));
         intent.putExtra("rest", Integer.parseInt(restTime));
         intent.putExtra("rounds", Integer.parseInt(roundsNumber));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
