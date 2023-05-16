@@ -1,20 +1,27 @@
 package com.example.pomodoroapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.pomodoroapp.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Activity с таймером
@@ -24,9 +31,16 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     private String nameConfiguration = null;
+
     private Integer focusMinutes = null;
     private Integer restMinutes = null;
     private Integer roundsCount = null;
+
+
+    private String tmpNameConfiguration = null;
+    private Integer tmpFocusMinutes = null;
+    private Integer tmpRestMinutes = null;
+    private Integer tmpRoundsCount = null;
 
 
     private CountDownTimer focusTimer = null;
@@ -73,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 binding.drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        binding.timerSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // вызываем метод для показа диалога
+                showSettingsDialog();
             }
         });
 
@@ -233,5 +255,95 @@ public class MainActivity extends AppCompatActivity {
         } else {
             clearAttribute();
         }
+    }
+
+    // создаем метод для вызова диалога
+    private void showSettingsDialog() {
+
+        // получаем SharedPreferences
+        SharedPreferences sp = getSharedPreferences("ConfigurationsPrefs", Context.MODE_PRIVATE);
+
+        // получаем все записи из SharedPreferences
+        Map<String, ?> allEntries = sp.getAll();
+
+        // создаем список для хранения названий конфигураций
+        List<String> configurationNames = new ArrayList<>();
+
+        // перебираем все записи и добавляем в список только те ключи, которые заканчиваются на "_focusingTime"
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            String key = entry.getKey();
+            if (key.endsWith("_focusingTime")) {
+                // убираем суффикс "_focusingTime" и добавляем в список
+                configurationNames.add(key.substring(0, key.length() - 13));
+            }
+        }
+
+        // преобразуем список в массив строк
+        String[] namesArray = configurationNames.toArray(new String[0]);
+
+        // создаем билдер для диалога
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // устанавливаем заголовок диалога
+        builder.setTitle("Выберите конфигурацию таймера");
+
+        // устанавливаем выпадающий список с названиями конфигураций и слушатель выбора элемента
+        builder.setSingleChoiceItems(namesArray, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // получаем выбранное название конфигурации
+                tmpNameConfiguration = namesArray[which];
+                // получаем настройки по этому названию из SharedPreferences
+                tmpFocusMinutes = Integer.parseInt(sp.getString(tmpNameConfiguration + "_focusingTime",
+                        "0")) * 60 * 1000;
+                tmpRestMinutes = Integer.parseInt(sp.getString(tmpNameConfiguration + "_restTime",
+                        "0")) * 60 * 1000;
+                tmpRoundsCount = Integer.valueOf(sp.getString(tmpNameConfiguration + "_roundsNumber",
+                        "0"));
+            }
+        });
+
+        // устанавливаем кнопку ОК и слушатель нажатия на нее
+        builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (tmpNameConfiguration == null) {
+                    Toast.makeText(MainActivity.this, "Не выбрана конфигурация",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    // присваиваем значения переменным в MainActivity
+                    MainActivity.this.nameConfiguration = tmpNameConfiguration;
+                    MainActivity.this.focusMinutes = tmpFocusMinutes;
+                    MainActivity.this.restMinutes = tmpRestMinutes;
+                    MainActivity.this.roundsCount = tmpRoundsCount;
+
+                    startTimerSetting();
+                }
+
+            }
+        });
+
+        // в методе showConfigurationDialog()
+        // после установки кнопки ОК добавляем кнопку Отмена
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                tmpNameConfiguration = null;
+                tmpFocusMinutes = null;
+                tmpRestMinutes = null;
+                tmpRoundsCount = null;
+
+                // закрываем диалог
+                dialog.dismiss();
+            }
+        });
+
+        // создаем и показываем диалог
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

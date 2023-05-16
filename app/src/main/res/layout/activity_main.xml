@@ -127,7 +127,7 @@
                 app:srcCompat="@drawable/notifications_on" />
     
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/timer_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
