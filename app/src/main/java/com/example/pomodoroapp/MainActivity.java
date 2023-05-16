@@ -54,20 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mp;
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        if (intent.hasExtra("name") || intent.hasExtra("focus") ||
-                intent.hasExtra("rest") || intent.hasExtra("rounds")) {
-            nameConfiguration = intent.getStringExtra("name");
-            focusMinutes = intent.getIntExtra("focus", 0) * 60 * 1000;
-            restMinutes = intent.getIntExtra("rest", 0) * 60 * 1000;
-            roundsCount = intent.getIntExtra("rounds", 0);
-            startTimerSetting();
-        }
-    }
-
     private void startTimerSetting() {
         // Set Rounds Text
         binding.studyStageNumber.setText(mRound + "/" + roundsCount);
