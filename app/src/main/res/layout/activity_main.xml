@@ -1,150 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/drawer_layout">
 
-    <ImageButton
-        android:id="@+id/side_bar_button"
-        android:layout_width="58sp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/side_bar_button"
-        android:backgroundTint="@android:color/transparent"
-        android:backgroundTintMode="src_in"
-        android:scaleType="fitXY"
-        android:layout_marginTop="15sp"
-        android:layout_marginStart="15sp"
-        app:srcCompat="@drawable/side_bar_button" />
-
-    <TextView
-        android:id="@+id/study_stage_number"
-        android:layout_width="86sp"
-        android:layout_height="86sp"
-        android:text="0/0"
-        android:gravity="center"
-        android:fontFamily="@font/montserrat_medium"
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:background="@drawable/circular_white"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/side_bar_button"
-        android:layout_marginTop="20sp" />
-
-    <TextView
-        android:id="@+id/study_stage_text"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Выберите конфигурацию таймера"
-        android:gravity="center"
-        android:fontFamily="@font/montserrat_medium"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:layout_below="@+id/study_stage_number"
-        android:layout_marginTop="15sp" />
-
-    <FrameLayout
-        android:id="@+id/timer_frame"
-        android:layout_width="300sp"
-        android:layout_height="300sp"
-        android:layout_below="@id/study_stage_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20sp"
-        android:background="@drawable/timer_big_circle">
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
+        android:layout_height="match_parent"
+        android:background="@color/bg">
+    
+        <ImageButton
+            android:id="@+id/side_bar_button"
+            android:layout_width="58sp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/side_bar_button"
+            android:backgroundTint="@android:color/transparent"
+            android:backgroundTintMode="src_in"
+            android:scaleType="fitXY"
+            android:layout_marginTop="15sp"
+            android:layout_marginStart="15sp"
+            app:srcCompat="@drawable/side_bar_button" />
+    
+        <TextView
+            android:id="@+id/study_stage_number"
+            android:layout_width="86sp"
+            android:layout_height="86sp"
+            android:text="0/0"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:background="@drawable/circular_white"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/side_bar_button"
+            android:layout_marginTop="20sp" />
+    
+        <TextView
+            android:id="@+id/study_stage_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Выберите конфигурацию таймера"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:layout_below="@+id/study_stage_number"
+            android:layout_marginTop="15sp" />
+    
+        <FrameLayout
+            android:id="@+id/timer_frame"
             android:layout_width="300sp"
             android:layout_height="300sp"
-            android:background="@drawable/progress_circle_grey"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/progress_circle_color"
-            android:rotation="-90"
-            android:rotationY="-180" />
-
-        <TextView
-            android:id="@+id/timer"
-            android:layout_width="200sp"
-            android:layout_height="200sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:background="@drawable/timer_small_circle"
-            android:text="00:00"
-            android:textColor="@color/white"
-            android:textSize="40sp"
-            android:fontFamily="@font/montserrat_medium" />
-        
-    </FrameLayout>
-
-    <ImageButton
-        android:id="@+id/button_stop"
-        android:layout_width="86sp"
-        android:layout_height="86sp"
-        android:layout_below="@id/timer_frame"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36sp"
-        android:background="@drawable/circular_white"
-        android:contentDescription="@string/start_stop_button"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_stop" />
+            android:layout_below="@id/study_stage_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/timer_big_circle">
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_menu_bg"
-        android:layout_marginHorizontal="60sp"
-        android:layout_marginBottom="20sp">
-
-
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="300sp"
+                android:layout_height="300sp"
+                android:background="@drawable/progress_circle_grey"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/progress_circle_color"
+                android:rotation="-90"
+                android:rotationY="-180" />
+    
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/timer_small_circle"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:fontFamily="@font/montserrat_medium" />
+            
+        </FrameLayout>
+    
         <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/transparent"
-            android:layout_marginHorizontal="15sp"
-            android:contentDescription="sound_on"
-            app:srcCompat="@drawable/sound_on" />
+            android:id="@+id/button_stop"
+            android:layout_width="86sp"
+            android:layout_height="86sp"
+            android:layout_below="@id/timer_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36sp"
+            android:background="@drawable/circular_white"
+            android:contentDescription="@string/start_stop_button"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_stop" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bottom_menu_bg"
+            android:layout_marginHorizontal="60sp"
+            android:layout_marginBottom="20sp">
+    
+    
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginHorizontal="15sp"
+                android:contentDescription="sound_on"
+                app:srcCompat="@drawable/sound_on" />
+    
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:contentDescription="notifications_on"
+                app:srcCompat="@drawable/notifications_on" />
+    
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginHorizontal="15sp"
+                android:contentDescription="clock_setup"
+                app:srcCompat="@drawable/clock_setup" />
+        </LinearLayout>
+        
+    </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="notifications_on"
-            app:srcCompat="@drawable/notifications_on" />
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/main_menu" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/transparent"
-            android:layout_marginHorizontal="15sp"
-            android:contentDescription="clock_setup"
-            app:srcCompat="@drawable/clock_setup" />
-    </LinearLayout>
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:menu="@menu/main_menu"
-            app:headerLayout="@layout/header"
-            android:layout_gravity="start" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
 
 
 
-</RelativeLayout>

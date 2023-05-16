@@ -1,15 +1,20 @@
 package com.example.pomodoroapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.pomodoroapp.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 /**
  * Activity с таймером
@@ -67,12 +72,23 @@ public class MainActivity extends AppCompatActivity {
         binding.sideBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (focusMinutes != null && !isRest) {
-                    resetOrStart();
-                }
+                binding.drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
-                Intent intent = new Intent(MainActivity.this, TimerConfigurationActivity.class);
-                startActivity(intent);
+        binding.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.configuration) {
+                    if (focusMinutes != null && !isRest) {
+                        resetOrStart();
+                    }
+
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent intent = new Intent(MainActivity.this, TimerConfigurationActivity.class);
+                    startActivity(intent);
+                }
+                return true;
             }
         });
     }

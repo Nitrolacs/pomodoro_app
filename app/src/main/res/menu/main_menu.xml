@@ -3,11 +3,11 @@
     <item
         android:id="@+id/configuration"
         android:icon="@drawable/ic_configuration"
-        android:title="Конфигурация таймера" />
+        android:title="Новая конфигурация" />
     <item
         android:id="@+id/cutomization"
         android:icon="@drawable/ic_customization"
-        android:title="Кастомизация таймера" />
+        android:title="Новая кастомизация" />
     <item
         android:id="@+id/information"
         android:icon="@drawable/ic_information"
