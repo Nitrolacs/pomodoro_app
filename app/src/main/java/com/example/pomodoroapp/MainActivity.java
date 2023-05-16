@@ -197,6 +197,28 @@ public class MainActivity extends AppCompatActivity {
         }.start();
     }
 
+    private void timerPreparation() {
+        isFocusing = true;
+
+        if (isRest) {
+            binding.buttonStop.setImageResource(R.drawable.ic_stop);
+        }
+
+        isRest = false;
+
+        if (restTimer != null) {
+            restTimer.cancel();
+        }
+
+        if (focusTimer != null) {
+            focusTimer.cancel();
+        }
+
+        if (startTimer != null) {
+            startTimer.cancel();
+        }
+    }
+
     // Rest Whole Attributes in MainActivity
     private void clearAttribute() {
         binding.studyStageText.setText("Нажми кнопку старта для запуска");
@@ -333,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.restMinutes = tmpRestMinutes;
                     MainActivity.this.roundsCount = tmpRoundsCount;
 
+                    timerPreparation();
                     startTimerSetting();
                 }
             }
