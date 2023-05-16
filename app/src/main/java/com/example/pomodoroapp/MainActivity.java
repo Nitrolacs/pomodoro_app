@@ -12,8 +12,12 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.pomodoroapp.databinding.ActivityMainBinding;
@@ -273,12 +277,27 @@ public class MainActivity extends AppCompatActivity {
         // устанавливаем заголовок диалога
         builder.setTitle("Выберите конфигурацию таймера");
 
-        // устанавливаем выпадающий список с названиями конфигураций и слушатель выбора элемента
-        builder.setSingleChoiceItems(namesArray, -1, new DialogInterface.OnClickListener() {
+        // создаем разметку для диалога с Spinner
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.dialog_with_spinner, null);
+
+        // находим Spinner в разметке
+        Spinner spinner = (Spinner) layout.findViewById(R.id.spinner);
+
+        // создаем адаптер для Spinner с массивом названий конфигураций
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, namesArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // устанавливаем адаптер для Spinner
+        spinner.setAdapter(adapter);
+
+        // устанавливаем слушатель выбора элемента для Spinner
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // получаем выбранное название конфигурации
-                tmpNameConfiguration = namesArray[which];
+                tmpNameConfiguration = namesArray[position];
                 // получаем настройки по этому названию из SharedPreferences
                 tmpFocusMinutes = Integer.parseInt(sp.getString(tmpNameConfiguration + "_focusingTime",
                         "0")) * 60 * 1000;
@@ -287,7 +306,15 @@ public class MainActivity extends AppCompatActivity {
                 tmpRoundsCount = Integer.valueOf(sp.getString(tmpNameConfiguration + "_roundsNumber",
                         "0"));
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
         });
+
+        // устанавливаем разметку для диалога
+        builder.setView(layout);
 
         // устанавливаем кнопку ОК и слушатель нажатия на нее
         builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
@@ -308,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
 
                     startTimerSetting();
                 }
-
             }
         });
 
