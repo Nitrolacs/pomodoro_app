@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_configuration"
         android:title="Новая конфигурация" />
     <item
+        android:id="@+id/delete_configuration"
+        android:icon="@drawable/ic_delete"
+        android:title="Удаление конфигурации" />
+    <item
         android:id="@+id/cutomization"
         android:icon="@drawable/ic_customization"
         android:title="Новая кастомизация" />

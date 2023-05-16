@@ -96,13 +96,21 @@ public class MainActivity extends AppCompatActivity {
                         resetOrStart();
                     }
 
-                    binding.drawerLayout.closeDrawer(GravityCompat.START);
-                    Intent intent = new Intent(MainActivity.this, TimerConfigurationActivity.class);
-                    startActivity(intent);
+                    transitionToNewActivity(TimerConfigurationActivity.class);
+                }
+
+                if (item.getItemId() == R.id.delete_configuration) {
+                    transitionToNewActivity(DeleteTimerConfigurationActivity.class);
                 }
                 return true;
             }
         });
+    }
+
+    private void transitionToNewActivity(Class<?> cls) {
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        Intent intent = new Intent(MainActivity.this, cls);
+        startActivity(intent);
     }
 
     // Set Rest Timer
@@ -344,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 if (tmpNameConfiguration == null) {
-                    Toast.makeText(MainActivity.this, "Не выбрана конфигурация",
+                    Toast.makeText(MainActivity.this, "Не создана конфигурация",
                             Toast.LENGTH_SHORT).show();
                 }
 

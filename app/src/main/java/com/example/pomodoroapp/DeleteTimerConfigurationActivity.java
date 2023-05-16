@@ -1,0 +1,120 @@
+package com.example.pomodoroapp;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+
+import com.example.pomodoroapp.databinding.ActivityDeleteTimerConfigurationBinding;
+import com.example.pomodoroapp.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class DeleteTimerConfigurationActivity extends AppCompatActivity {
+
+    private ActivityDeleteTimerConfigurationBinding binding;
+
+    private ArrayAdapter<String> adapter;
+
+    private void startMainActivity() {
+        Intent intent = new Intent(DeleteTimerConfigurationActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
+    // создаем метод для удаления записи из SharedPreferences по названию конфигурации
+    private void deleteConfiguration(String name) {
+        // получаем SharedPreferences
+        SharedPreferences sp = getSharedPreferences("ConfigurationsPrefs", Context.MODE_PRIVATE);
+        // получаем редактор SharedPreferences
+        SharedPreferences.Editor editor = sp.edit();
+        // удаляем все ключи, связанные с названием конфигурации
+        editor.remove(name + "_focusingTime");
+        editor.remove(name + "_restTime");
+        editor.remove(name + "_roundsNumber");
+        // применяем изменения
+        editor.apply();
+
+        startMainActivity();
+    }
+
+    // создаем метод для показа диалога с подтверждением удаления
+    private void showDeleteDialog(String name) {
+        // создаем билдер для диалога
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // устанавливаем сообщение диалога
+        builder.setMessage("Вы уверены, что хотите удалить конфигурацию " + name + "?");
+        // устанавливаем кнопку Да и слушатель нажатия на нее
+        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // вызываем метод для удаления записи из SharedPreferences
+                deleteConfiguration(name);
+            }
+        });
+        // устанавливаем кнопку Нет и слушатель нажатия на нее
+        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // закрываем диалог
+                dialog.dismiss();
+            }
+        });
+        // создаем и показываем диалог
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityDeleteTimerConfigurationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // получаем SharedPreferences
+        SharedPreferences sp = getSharedPreferences("ConfigurationsPrefs", Context.MODE_PRIVATE);
+
+        // получаем все записи из SharedPreferences
+        Map<String, ?> allEntries = sp.getAll();
+
+        // создаем список для хранения названий конфигураций
+        List<String> configurationNames = new ArrayList<>();
+
+        // перебираем все записи и добавляем в список только те ключи, которые заканчиваются на "_focusingTime"
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            String key = entry.getKey();
+            if (key.endsWith("_focusingTime")) {
+                // убираем суффикс "_focusingTime" и добавляем в список
+                configurationNames.add(key.substring(0, key.length() - 13));
+            }
+        }
+
+        // преобразуем список в массив строк
+        String[] namesArray = configurationNames.toArray(new String[0]);
+
+        adapter = new ArrayAdapter<>(this,
+                R.layout.name_item, R.id.item_name, namesArray);
+
+        binding.listView.setAdapter(adapter);
+
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // получаем название конфигурации по позиции
+                String name = namesArray[position];
+                // вызываем метод для показа диалога с подтверждением удаления и передаем ему позицию элемента
+                showDeleteDialog(name);
+            }
+        });
+    }
+}
