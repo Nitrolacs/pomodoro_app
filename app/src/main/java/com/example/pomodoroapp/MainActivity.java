@@ -189,9 +189,9 @@ public class MainActivity extends AppCompatActivity {
                     setStartTimer();
                     mRound++;
                 } else {
-
                     clearAttribute();
                     binding.studyStageText.setText("Вы закончили все циклы :)");
+
                 }
             }
         }.start();
