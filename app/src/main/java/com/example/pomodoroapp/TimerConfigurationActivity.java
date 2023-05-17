@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -170,15 +171,18 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         binding = ActivityTimerConfigurationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMainActivity();
+            }
+        });
+
         binding.buttonSaveConfiguration.setOnClickListener(v -> {
             getFieldsValues();
 
             if (checkInput()) {
-
-                if (saveConfigurationSettings()) {
-                    startMainActivity();
-                }
-
+                saveConfigurationSettings();
             }
         });
     }

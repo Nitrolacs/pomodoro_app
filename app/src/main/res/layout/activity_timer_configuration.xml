@@ -8,16 +8,16 @@
     tools:context=".TimerConfigurationActivity">
 
     <ImageButton
-        android:id="@+id/side_bar_button"
-        android:layout_width="58sp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/side_bar_button"
+        android:id="@+id/back_button"
+        android:layout_width="61sp"
+        android:layout_height="57sp"
+        android:contentDescription="Back button"
         android:backgroundTint="@android:color/transparent"
         android:backgroundTintMode="src_in"
         android:scaleType="fitXY"
         android:layout_marginTop="15sp"
         android:layout_marginStart="15sp"
-        app:srcCompat="@drawable/side_bar_button" />
+        app:srcCompat="@drawable/back" />
 
     <TextView
         android:id="@+id/title_configuration"
@@ -27,10 +27,10 @@
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:layout_marginTop="22sp"
+        android:layout_marginTop="16sp"
         android:layout_marginBottom="30sp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/side_bar_button"/>
+        android:layout_below="@id/back_button"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/configuration_name"

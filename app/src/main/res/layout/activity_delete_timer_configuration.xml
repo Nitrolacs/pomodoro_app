@@ -7,6 +7,18 @@
     tools:context=".DeleteTimerConfigurationActivity"
     android:background="@color/bg">
 
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="61sp"
+        android:layout_height="57sp"
+        android:contentDescription="Back button"
+        android:backgroundTint="@android:color/transparent"
+        android:backgroundTintMode="src_in"
+        android:scaleType="fitXY"
+        android:layout_marginTop="15sp"
+        android:layout_marginStart="15sp"
+        app:srcCompat="@drawable/back" />
+
     <TextView
         android:id="@+id/delete_configuration_title"
         android:layout_width="wrap_content"
@@ -15,9 +27,10 @@
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:layout_marginTop="42sp"
+        android:layout_marginTop="10sp"
         android:layout_marginBottom="30sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/back_button"/>
 
     <ListView
         android:id="@+id/list_view"

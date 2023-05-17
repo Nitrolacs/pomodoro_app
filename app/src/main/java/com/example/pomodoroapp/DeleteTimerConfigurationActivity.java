@@ -28,6 +28,8 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> adapter;
 
+    private List<String> configurationNames;
+
     private void startMainActivity() {
         Intent intent = new Intent(DeleteTimerConfigurationActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -47,7 +49,9 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         // применяем изменения
         editor.apply();
 
-        startMainActivity();
+        configurationNames.remove(name);
+
+        adapter.notifyDataSetChanged();
     }
 
     // создаем метод для показа диалога с подтверждением удаления
@@ -90,7 +94,7 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         Map<String, ?> allEntries = sp.getAll();
 
         // создаем список для хранения названий конфигураций
-        List<String> configurationNames = new ArrayList<>();
+        configurationNames = new ArrayList<>();
         List<String> configurationParameters = new ArrayList<>();
 
         // перебираем все записи и добавляем в список только те ключи, которые заканчиваются на "_focusingTime"
@@ -131,12 +135,19 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMainActivity();
+            }
+        });
+
 
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // получаем название конфигурации по позиции
-                String name = namesArray[position];
+                String name = adapter.getItem(position);
                 // вызываем метод для показа диалога с подтверждением удаления и передаем ему позицию элемента
                 showDeleteDialog(name);
             }
