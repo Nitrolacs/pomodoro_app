@@ -9,7 +9,19 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="18sp"
+        android:layout_marginBottom="18sp"
         android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/item_parameters"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="20sp"
+        android:layout_marginTop="18sp"
+        android:layout_marginBottom="18sp"
+        android:textColor="@color/white"
+        android:layout_alignParentEnd="true"/>
     
 </RelativeLayout>

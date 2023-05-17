@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pomodoroapp.databinding.ActivityDeleteTimerConfigurationBinding;
-import com.example.pomodoroapp.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,23 +91,46 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
 
         // создаем список для хранения названий конфигураций
         List<String> configurationNames = new ArrayList<>();
+        List<String> configurationParameters = new ArrayList<>();
 
         // перебираем все записи и добавляем в список только те ключи, которые заканчиваются на "_focusingTime"
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             String key = entry.getKey();
             if (key.endsWith("_focusingTime")) {
                 // убираем суффикс "_focusingTime" и добавляем в список
-                configurationNames.add(key.substring(0, key.length() - 13));
+                String name = key.substring(0, key.length() - 13);
+                configurationNames.add(name);
+
+                // получаем значения параметров по ключам
+                String focusingTime = sp.getString(name + "_focusingTime", "0");
+                String restTime = sp.getString(name + "_restTime", "0");
+                String roundsNumber = sp.getString(name + "_roundsNumber", "0");
+                // формируем строку с параметрами
+                String parameters = focusingTime + ":" + restTime + ":" + roundsNumber;
+                // добавляем строку в список параметров
+                configurationParameters.add(parameters);
             }
         }
 
         // преобразуем список в массив строк
         String[] namesArray = configurationNames.toArray(new String[0]);
+        //String[] parametersArray = configurationParameters.toArray(new String[0]);
 
-        adapter = new ArrayAdapter<>(this,
-                R.layout.name_item, R.id.item_name, namesArray);
-
+        //adapter = new ArrayAdapter<>(this,
+        //        R.layout.name_item, R.id.item_name, namesArray);
+        adapter = new MyListAdapter(this, configurationNames, configurationParameters);
         binding.listView.setAdapter(adapter);
+
+        if (namesArray.length != 0) {
+            Toast.makeText(DeleteTimerConfigurationActivity.this,
+                    "Нажмите на удаляемую строку",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(DeleteTimerConfigurationActivity.this,
+                    "Конфигурации ещё не добавлены",
+                    Toast.LENGTH_SHORT).show();
+        }
+
 
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,3 +143,4 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         });
     }
 }
+
