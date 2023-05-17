@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    style="@style/SCREEN"
     tools:context=".TimerConfigurationActivity">
 
     <ImageButton
@@ -26,7 +26,7 @@
         android:text="Настройка конфигурации таймера"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:layout_marginTop="16sp"
         android:layout_marginBottom="30sp"
         android:layout_centerHorizontal="true"
@@ -39,8 +39,7 @@
         android:layout_below="@id/title_configuration"
         android:layout_marginTop="20sp"
         android:layout_marginHorizontal="40sp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
+        style="@style/TEXT">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/field_configuration_name"
@@ -48,7 +47,7 @@
             android:layout_height="wrap_content"
             android:hint="Название конфигурации таймера"
             android:inputType="text"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,8 +58,7 @@
         android:layout_below="@id/configuration_name"
         android:layout_marginTop="20sp"
         android:layout_marginHorizontal="40sp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
+        style="@style/TEXT">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/field_focusing_time"
@@ -68,7 +66,7 @@
             android:layout_height="wrap_content"
             android:hint="Время фокусирования в минутах"
             android:inputType="number"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,8 +77,7 @@
         android:layout_below="@id/configuration_focusing_time"
         android:layout_marginTop="20sp"
         android:layout_marginHorizontal="40sp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white">
+        style="@style/TEXT">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/field_rest_time"
@@ -88,7 +85,7 @@
             android:layout_height="wrap_content"
             android:hint="Время отдыха в минутах"
             android:inputType="number"
-            android:textColor="@color/white"
+            style="@style/TEXT"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -100,8 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/configuration_rest_time"
         android:layout_marginTop="20sp"
-        app:boxStrokeColor="@color/white"
-        app:hintTextColor="@color/white"
+        style="@style/TEXT"
         android:layout_marginHorizontal="40sp">
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -110,7 +106,7 @@
             android:layout_height="wrap_content"
             android:hint="Количество циклов"
             android:inputType="number"
-            android:textColor="@color/white"/>
+            style="@style/TEXT"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,8 +121,7 @@
         android:text="Сохранить"
         android:textSize="22sp"
         android:fontFamily="@font/montserrat_medium"
-        android:backgroundTint="@color/primary_color"
-        android:textColor="@color/white"
+        style="@style/BUTTON"
         android:contentDescription="@string/start_stop_button" />
 
 </RelativeLayout>

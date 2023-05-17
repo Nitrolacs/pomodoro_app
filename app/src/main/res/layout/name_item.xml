@@ -11,7 +11,7 @@
         android:textSize="20sp"
         android:layout_marginTop="18sp"
         android:layout_marginBottom="18sp"
-        android:textColor="@color/white"/>
+        style="@style/TEXT"/>
 
     <TextView
         android:id="@+id/item_parameters"
@@ -21,7 +21,7 @@
         android:textSize="20sp"
         android:layout_marginTop="18sp"
         android:layout_marginBottom="18sp"
-        android:textColor="@color/white"
+        style="@style/TEXT"
         android:layout_alignParentEnd="true"/>
     
 </RelativeLayout>

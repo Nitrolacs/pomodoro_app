@@ -12,4 +12,37 @@
     </style>
 
     <style name="Theme.PomodoroApp" parent="Base.Theme.PomodoroApp" />
+
+    <style name="SCREEN">
+        <item name="android:background">@color/bg</item>
+    </style>
+
+    <style name="TEXT">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BUTTON">
+        <item name="android:background">@color/primary_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HEADER">
+        <item name="android:background">@color/primary_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SMALLCIRCLE">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CIRCLE">
+        <item name="android:backgroundTint">@color/bg</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BIG_CIRCLE">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
 </resources>

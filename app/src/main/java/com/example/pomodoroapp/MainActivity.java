@@ -102,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.delete_configuration) {
                     transitionToNewActivity(DeleteTimerConfigurationActivity.class);
                 }
+
+                if (item.getItemId() == R.id.cutomization) {
+                    transitionToNewActivity(SettingsActivity.class);
+                }
+
                 return true;
             }
         });

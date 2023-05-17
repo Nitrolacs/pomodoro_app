@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeleteTimerConfigurationActivity"
+    tools:context=".SettingsActivity"
     style="@style/SCREEN">
 
     <ImageButton
@@ -20,25 +20,44 @@
         app:srcCompat="@drawable/back" />
 
     <TextView
-        android:id="@+id/delete_configuration_title"
+        android:id="@+id/customization_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Удаление конфигурации таймера"
+        android:text="Настройки оформления"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="20sp"
         style="@style/TEXT"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="20sp"
         android:layout_marginBottom="30sp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/back_button"/>
+        android:layout_below="@id/back_button"
+        />
 
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/delete_configuration_title"
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="20sp"
+        android:layout_marginTop="18sp"
+        android:layout_marginBottom="18sp"
         android:layout_marginHorizontal="25sp"
-        android:layout_marginBottom="20sp"
-        style="@style/TEXT" />
+        style="@style/TEXT"
+        android:text="Включение тёмной темы"
+        android:layout_below="@id/customization_title"
+        />
+
+    <Switch
+        android:id="@+id/switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:layout_marginTop="19sp"
+        android:layout_marginBottom="18sp"
+        style="@style/TEXT"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/customization_title"
+        android:gravity="center"
+         />
+
 
 </RelativeLayout>
