@@ -22,21 +22,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Класс для удаления конфигураций таймера
+ */
 public class DeleteTimerConfigurationActivity extends AppCompatActivity {
 
+    /**
+     * Переменная для доступа к элементам Activity
+     */
     private ActivityDeleteTimerConfigurationBinding binding;
 
+    /**
+     * Адаптер
+     */
     private ArrayAdapter<String> adapter;
 
+    /**
+     * Названия конфигураций
+     */
     private List<String> configurationNames;
 
+    /**
+     * Переход на главную Activity
+     */
     private void startMainActivity() {
         Intent intent = new Intent(DeleteTimerConfigurationActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
-    // создаем метод для удаления записи из SharedPreferences по названию конфигурации
+    /**
+     * Метод для удаления записи из SharedPreferences по названию конфигурации
+     * @param name Название удаляемой конфигурации
+     */
     private void deleteConfiguration(String name) {
         // получаем SharedPreferences
         SharedPreferences sp = getSharedPreferences("ConfigurationsPrefs", Context.MODE_PRIVATE);
@@ -54,7 +72,10 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    // создаем метод для показа диалога с подтверждением удаления
+    /**
+     * Метод для показа диалога с подтверждением удаления
+     * @param name Название удаляемой конфигурации
+     */
     private void showDeleteDialog(String name) {
         // создаем билдер для диалога
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -81,6 +102,9 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Метод, вызываемый при создании Activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

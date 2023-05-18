@@ -12,8 +12,5 @@
         android:id="@+id/cutomization"
         android:icon="@drawable/ic_customization"
         android:title="Настройка оформления" />
-    <item
-        android:id="@+id/information"
-        android:icon="@drawable/ic_information"
-        android:title="Информация" />
+
 </menu>

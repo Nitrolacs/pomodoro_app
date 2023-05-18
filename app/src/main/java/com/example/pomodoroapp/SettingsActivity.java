@@ -14,6 +14,9 @@ import android.widget.Switch;
 import com.example.pomodoroapp.databinding.ActivityDeleteTimerConfigurationBinding;
 import com.example.pomodoroapp.databinding.ActivitySettingsBinding;
 
+/**
+ * Класс настроек
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     private ActivitySettingsBinding binding;
@@ -57,8 +60,6 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.apply();
             }
         });
-
-
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

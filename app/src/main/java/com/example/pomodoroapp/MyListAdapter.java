@@ -9,12 +9,21 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * Кастомный адаптер для отображения информации о конфигурациях
+ */
 public class MyListAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private List<String> names;
     private List<String> parameters;
 
+    /**
+     * Конструктор
+     * @param context Контекст
+     * @param names Названия конфигураций
+     * @param parameters Параметры конфигураций
+     */
     public MyListAdapter(Context context, List<String> names, List<String> parameters) {
         super(context, R.layout.name_item, names);
         this.context = context;
