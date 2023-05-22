@@ -1,27 +1,19 @@
 package com.example.pomodoroapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.pomodoroapp.databinding.ActivityMainBinding;
-import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
-import java.util.Map;
+import com.example.pomodoroapp.databinding.ActivityMainBinding;
 
 /**
  * Главная Activity с таймером
@@ -164,28 +156,22 @@ public class MainActivity extends AppCompatActivity {
         builder.setView(layout);
 
         // устанавливаем кнопку ОК и слушатель нажатия на нее
-        builder.setPositiveButton("Ок", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!bridge.saveSelectedConfiguration()) {
-                    Toast.makeText(MainActivity.this, "Не создана конфигурация",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    timerEnvironmentSetting();
-                }
+        builder.setPositiveButton("Ок", (dialog, which) -> {
+            if (!bridge.saveSelectedConfiguration()) {
+                Toast.makeText(MainActivity.this, "Не создана конфигурация",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                timerEnvironmentSetting();
             }
         });
 
         // в методе showConfigurationDialog()
         // после установки кнопки ОК добавляем кнопку Отмена
-        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                bridge.resetTmpFields();
+        builder.setNegativeButton("Отмена", (dialog, which) -> {
+            bridge.resetTmpFields();
 
-                // закрываем диалог
-                dialog.dismiss();
-            }
+            // закрываем диалог
+            dialog.dismiss();
         });
 
         // создаем и показываем диалог

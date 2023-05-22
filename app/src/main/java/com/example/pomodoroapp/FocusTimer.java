@@ -1,13 +1,11 @@
 package com.example.pomodoroapp;
 
-import android.content.Context;
-
 /**
  * Класс таймера для фокусирования.
  */
 class FocusTimer extends Timer {
 
-    private Bridge bridge; // экземпляр класса мостика
+    private final Bridge bridge; // экземпляр класса мостика
 
     public FocusTimer(long duration) {
         super(duration);

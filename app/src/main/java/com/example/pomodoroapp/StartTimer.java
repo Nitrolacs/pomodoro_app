@@ -1,13 +1,11 @@
 package com.example.pomodoroapp;
 
-import android.content.Context;
-
 /**
  * Класс таймера для подготовки к фокусировке или отдыху.
  */
 class StartTimer extends Timer {
 
-    private Bridge bridge; // экземпляр класса мостика
+    private final Bridge bridge; // экземпляр класса мостика
 
     public StartTimer(long duration) {
         super(duration);

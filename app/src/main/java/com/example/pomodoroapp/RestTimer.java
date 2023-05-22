@@ -5,7 +5,7 @@ package com.example.pomodoroapp;
  */
 class RestTimer extends Timer {
 
-    private Bridge bridge; // экземпляр класса мостика
+    private final Bridge bridge; // экземпляр класса мостика
 
     public RestTimer(long duration) {
         super(duration);

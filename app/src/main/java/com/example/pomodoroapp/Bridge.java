@@ -1,19 +1,7 @@
 package com.example.pomodoroapp;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -217,7 +205,6 @@ public class Bridge {
      * @param timeLabel строка с оставшимся временем в формате mm:ss.
      */
     public void updateTimerText(String timeLabel) {
-        // устанавливаем текст таймера равным строке с оставшимся временем
         MainActivity.updateTimerText(timeLabel);
     }
 
@@ -296,25 +283,7 @@ public class Bridge {
         isRest = true;
     }
 
-    /**
-     * Метод для получения значения флага фокусировки.
-     * @return true, если идет фокусировка, false - в противном случае.
-     */
-    public boolean isFocusing() {
-        return isFocusing;
-    }
-
     public void setFocusing() {
-        isFocusing = true;
-    }
-
-    /**
-     * Метод для перехода к следующему раунду.
-     */
-    public void nextRound() {
-        // увеличиваем номер раунда на единицу
-        mRound++;
-        // меняем флаг фокусировки на true
         isFocusing = true;
     }
 
@@ -328,14 +297,6 @@ public class Bridge {
 
     public boolean isRest() {
         return isRest;
-    }
-
-    /**
-     * Метод для проверки, запущен ли какой-либо таймер.
-     * @return true, если запущен хотя бы один таймер, false - в противном случае.
-     */
-    public boolean isTimerRunning() {
-        return focusTimer != null || restTimer != null || startTimer != null;
     }
 
     /**
