@@ -27,7 +27,6 @@ class FocusTimer extends Timer {
         bridge.setProgressBar((int)(millisUntilFinished / 1000));
         // вызываем метод из класса мостика для обновления текста таймера при каждом тике таймера фокусирования
         bridge.updateTimerText(bridge.createTimeLabels((int)(millisUntilFinished / 1000)));
-
     }
 
     @Override
