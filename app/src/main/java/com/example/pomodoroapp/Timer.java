@@ -1,19 +1,15 @@
 package com.example.pomodoroapp;
 
-import android.content.Context;
 import android.os.CountDownTimer;
 
 /**
  * Абстрактный класс таймера с шаблонным методом start()
  */
 public abstract class Timer {
-
-    protected Context context; // контекст приложения
     protected CountDownTimer countDownTimer; // таймер обратного отсчета
     protected long duration; // длительность таймера в миллисекундах
 
-    public Timer(Context context, long duration) {
-        this.context = context;
+    public Timer(long duration) {
         this.duration = duration;
     }
 
