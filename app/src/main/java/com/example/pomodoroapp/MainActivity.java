@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void timerEnvironmentSetting() {
-        if (bridge.getRest()) {
+        if (bridge.isRest()) {
             setStopButton();
         }
         bridge.timerPreparation();
@@ -89,9 +89,13 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonStop.setOnClickListener(v -> bridge.resetOrStart());
     }
 
-    private void setupFocusingTimerView() {
+    public void setupFocusingTimerView() {
         setStageNumber(bridge.getRounds());
         bridge.setFocusingTimer();
+    }
+
+    public void setupRestTimerView() {
+        bridge.setRestTimer();
     }
 
     public void setStageText(String text) {
@@ -195,5 +199,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setStartButton() {
         binding.buttonStop.setImageResource(R.drawable.ic_play);
+    }
+
+    public void finishTimer() {
+        binding.studyStageText.setText("Вы закончили все циклы :)");
     }
 }

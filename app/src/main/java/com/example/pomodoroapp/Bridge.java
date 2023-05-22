@@ -52,8 +52,6 @@ public class Bridge {
 
     /**
      * Статический метод для получения единственного экземпляра класса мостика.
-     * @param context контекст приложения.
-     * @return экземпляр класса мостика.
      */
     public static synchronized Bridge getBridge() {
         if (bridge == null) { // если экземпляр еще не создан, то создаем его
@@ -70,8 +68,6 @@ public class Bridge {
 
     /**
      * Метод для получения списка названий конфигураций таймера из SharedPreferences.
-     * @param allEntries все записи из SharedPreferences.
-     * @return массив строк с названиями конфигураций таймера.
      */
     public String[] getConfigurationNames(String fileName, String endsWith, Context context) {
         // получаем SharedPreferences
@@ -164,31 +160,28 @@ public class Bridge {
     }
 
     public void setStartTimer() {
-        startTimer = new StartTimer(5500);
+        startTimer = new StartTimer(5000);
         startTimer.start();
     }
 
-    /**
-     * Метод для подготовки экрана к фокусировке.
-     */
-    public void setupFocusingView() {
-        // устанавливаем текст с номером раунда
-        studyStageNumber.setText(mRound + "/" + roundsCount);
-        // устанавливаем текст с названием этапа
-        studyStageText.setText("Время фокусирования");
-        // устанавливаем максимальное значение прогресс-бара равное длительности фокусировки в секундах
-        progressBar.setMax(focusMinutes / 1000);
+    public void setFocusingTimer() {
+        if (focusTimer != null) {
+            focusTimer.finish();
+        }
+
+        focusTimer = new FocusTimer(focusMinutes.longValue());
+        focusTimer.start();
     }
 
-    /**
-     * Метод для подготовки экрана к отдыху.
-     */
-    public void setupRestView() {
-        // устанавливаем текст с названием этапа
-        studyStageText.setText("Время отдыха");
-        // устанавливаем максимальное значение прогресс-бара равное длительности отдыха в секундах
-        progressBar.setMax(restMinutes / 1000);
+    public void setRestTimer() {
+        if (restTimer != null) {
+            restTimer.finish();
+        }
+
+        restTimer = new RestTimer(restMinutes.longValue());
+        restTimer.start();
     }
+
 
     /**
      * Метод для установки текста с названием этапа.
@@ -199,7 +192,6 @@ public class Bridge {
         mainActivity.setStageText(text);
     }
 
-
     /**
      * Метод для обновления прогресс-бара при каждом тике таймера фокусировки или отдыха.
      * @param seconds оставшееся время в секундах.
@@ -207,6 +199,10 @@ public class Bridge {
     public void setProgressBar(int seconds) {
         // устанавливаем текущее значение прогресс-бара равное оставшемуся времени в секундах
         mainActivity.setProgressBar(seconds);
+    }
+
+    public void setStageNumber(String text) {
+        mainActivity.setStageNumber(text);
     }
 
     /**
@@ -235,6 +231,17 @@ public class Bridge {
         }
     }
 
+    public void actionsAfterFocusing() {
+        if (isLastRound()) {
+            isFocusing = false;
+            setStartTimer();
+            mRound++;
+        } else {
+            clearAttributes();
+            mainActivity.finishTimer();
+        }
+    }
+
     /**
      * Метод для конвертации числа секунд в строку в формате mm:ss.
      * @param time число секунд.
@@ -244,10 +251,13 @@ public class Bridge {
         String timeLabel = "";
         int minutes = time / 60;
         int seconds = time % 60;
+
         if (minutes < 10) timeLabel += "0";
         timeLabel += minutes + ":";
+
         if (seconds < 10) timeLabel += "0";
         timeLabel += seconds;
+
         return timeLabel;
     }
 
@@ -296,6 +306,10 @@ public class Bridge {
         return isFocusing;
     }
 
+    public void setFocusing() {
+        isFocusing = true;
+    }
+
     /**
      * Метод для перехода к следующему раунду.
      */
@@ -311,7 +325,11 @@ public class Bridge {
      * @return true, если текущий раунд последний, false - в противном случае.
      */
     public boolean isLastRound() {
-        return mRound == roundsCount;
+        return mRound < roundsCount;
+    }
+
+    public boolean isRest() {
+        return isRest;
     }
 
     /**
@@ -329,8 +347,6 @@ public class Bridge {
     public Integer getFocusMinutes() {
         return focusMinutes;
     }
-
-    public boolean getRest()
 
     /**
      * Метод для получения длительности отдыха в миллисекундах.
