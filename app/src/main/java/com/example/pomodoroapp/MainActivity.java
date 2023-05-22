@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void timerEnvironmentSetting() {
         if (bridge.getRest()) {
-            binding.buttonStop.setImageResource(R.drawable.ic_stop);
+            setStopButton();
         }
         bridge.timerPreparation();
         setupStartTimerView();
@@ -82,11 +82,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupStartTimerView() {
         // Set Rounds Text
-        binding.studyStageNumber.setText(bridge.getStartRounds());
+        binding.studyStageNumber.setText(bridge.getRounds());
         bridge.setStartTimer();
 
         // Reset Button
         binding.buttonStop.setOnClickListener(v -> bridge.resetOrStart());
+    }
+
+    private void setupFocusingTimerView() {
+        setStageNumber(bridge.getRounds());
+        bridge.setFocusingTimer();
     }
 
     public void setStageText(String text) {
@@ -99,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setMaxProgressBar(int max) {
         binding.progressBar.setMax(max);
+    }
+
+    public void setStageNumber(String text) {
+        binding.studyStageNumber.setText(text);
     }
 
     public void updateTimerText(String timeLabel) {
@@ -178,5 +187,13 @@ public class MainActivity extends AppCompatActivity {
         // создаем и показываем диалог
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void setStopButton() {
+        binding.buttonStop.setImageResource(R.drawable.ic_stop);
+    }
+
+    public void setStartButton() {
+        binding.buttonStop.setImageResource(R.drawable.ic_play);
     }
 }

@@ -33,13 +33,6 @@ class StartTimer extends Timer {
 
     @Override
     protected void finish() {
-        // в зависимости от флага фокусировки создаем и запускаем таймер фокусировки или отдыха с нужной длительностью
-        if (bridge.isFocusing()) {
-            FocusTimer focusTimer = new FocusTimer(context, bridge.getFocusMinutes());
-            focusTimer.start();
-        } else {
-            RestTimer restTimer = new RestTimer(context, bridge.getRestMinutes());
-            restTimer.start();
-        }
+        bridge.checkCurrentTimer();
     }
 }

@@ -159,7 +159,7 @@ public class Bridge {
         }
     }
 
-    public String getStartRounds() {
+    public String getRounds() {
         return mRound + "/" + roundsCount;
     }
 
@@ -227,6 +227,14 @@ public class Bridge {
         mainActivity.updateTimerText(timeLabel);
     }
 
+    public void checkCurrentTimer() {
+        if (isFocusing) {
+            mainActivity.setupFocusingTimerView();
+        } else {
+            mainActivity.setupRestTimerView();
+        }
+    }
+
     /**
      * Метод для конвертации числа секунд в строку в формате mm:ss.
      * @param time число секунд.
@@ -247,11 +255,10 @@ public class Bridge {
      * Метод для сброса или запуска таймера.
      */
     public void resetOrStart() {
-        if (isRest) { // если идет отдых, то меняем иконку кнопки сброса или запуска таймера на стоп
-            buttonStop.setImageResource(R.drawable.ic_stop);
-            stopAllTimers();
-            startTimerSetting(); // вызываем метод для запуска таймера подготовки
-            isRest = false; // устанавливаем флаг отдыха в false
+        if (isRest) {
+            mainActivity.setStopButton();
+            setStartTimer();
+            isRest = false;
         } else { // если не идет отдых, то очищаем все атрибуты
             clearAttributes();
         }
@@ -262,19 +269,21 @@ public class Bridge {
      */
     public void clearAttributes() {
         // устанавливаем текст с названием этапа
-        studyStageText.setText("Нажми кнопку старта для запуска");
+        mainActivity.setStageText("Нажми кнопку старта для запуска");
         // меняем иконку кнопки сброса или запуска таймера на плей
-        buttonStop.setImageResource(R.drawable.ic_play);
+        mainActivity.setStartButton();
         // обнуляем прогресс-бар
-        progressBar.setProgress(0);
+        mainActivity.setProgressBar(0);
         // обнуляем текст таймера
-        timer.setText("0");
+        mainActivity.updateTimerText("0");
         // сбрасываем номер раунда
         mRound = 1;
         // устанавливаем текст с номером раунда
-        studyStageNumber.setText(mRound + "/" + roundsCount);
+        mainActivity.setStageNumber(getRounds());
+
         // останавливаем все таймеры, если они запущены
         stopAllTimers();
+
         // устанавливаем флаг отдыха в true
         isRest = true;
     }
