@@ -27,8 +27,8 @@ import java.util.Map;
  * Главная Activity с таймером
  */
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
-    private Bridge bridge;
+    private static ActivityMainBinding binding;
+    private static Bridge bridge;
 
     /**
      * Метод, вызываемый при создании Activity
@@ -89,32 +89,32 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonStop.setOnClickListener(v -> bridge.resetOrStart());
     }
 
-    public void setupFocusingTimerView() {
+    public static void setupFocusingTimerView() {
         setStageNumber(bridge.getRounds());
         bridge.setFocusingTimer();
     }
 
-    public void setupRestTimerView() {
+    public static void setupRestTimerView() {
         bridge.setRestTimer();
     }
 
-    public void setStageText(String text) {
+    public static void setStageText(String text) {
         binding.studyStageText.setText(text);
     }
 
-    public void setProgressBar(int seconds) {
+    public static void setProgressBar(int seconds) {
         binding.progressBar.setProgress(seconds);
     }
 
-    public void setMaxProgressBar(int max) {
+    public static void setMaxProgressBar(int max) {
         binding.progressBar.setMax(max);
     }
 
-    public void setStageNumber(String text) {
+    public static void setStageNumber(String text) {
         binding.studyStageNumber.setText(text);
     }
 
-    public void updateTimerText(String timeLabel) {
+    public static void updateTimerText(String timeLabel) {
         binding.timer.setText(timeLabel);
     }
 
@@ -193,15 +193,15 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void setStopButton() {
+    public static void setStopButton() {
         binding.buttonStop.setImageResource(R.drawable.ic_stop);
     }
 
-    public void setStartButton() {
+    public static void setStartButton() {
         binding.buttonStop.setImageResource(R.drawable.ic_play);
     }
 
-    public void finishTimer() {
+    public static void finishTimer() {
         binding.studyStageText.setText("Вы закончили все циклы :)");
     }
 }

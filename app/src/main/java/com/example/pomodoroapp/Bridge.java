@@ -26,8 +26,6 @@ import java.util.Map;
 public class Bridge {
     private static Bridge bridge; // единственный экземпляр класса мостика
 
-    private MainActivity mainActivity = new MainActivity();
-
     private String nameConfiguration = null; // название конфигурации таймера
     private Integer focusMinutes = null; // длительность фокусировки в миллисекундах
     private Integer restMinutes = null; // длительность отдыха в миллисекундах
@@ -189,7 +187,7 @@ public class Bridge {
      */
     public void setStageText(String text) {
         // устанавливаем текст с названием этапа
-        mainActivity.setStageText(text);
+        MainActivity.setStageText(text);
     }
 
     /**
@@ -198,11 +196,11 @@ public class Bridge {
      */
     public void setProgressBar(int seconds) {
         // устанавливаем текущее значение прогресс-бара равное оставшемуся времени в секундах
-        mainActivity.setProgressBar(seconds);
+        MainActivity.setProgressBar(seconds);
     }
 
     public void setStageNumber(String text) {
-        mainActivity.setStageNumber(text);
+        MainActivity.setStageNumber(text);
     }
 
     /**
@@ -211,7 +209,7 @@ public class Bridge {
      */
     public void setMaxProgressBar(int max) {
         // устанавливаем максимальное значение прогресс-бара
-        mainActivity.setMaxProgressBar(max);
+        MainActivity.setMaxProgressBar(max);
     }
 
     /**
@@ -220,14 +218,14 @@ public class Bridge {
      */
     public void updateTimerText(String timeLabel) {
         // устанавливаем текст таймера равным строке с оставшимся временем
-        mainActivity.updateTimerText(timeLabel);
+        MainActivity.updateTimerText(timeLabel);
     }
 
     public void checkCurrentTimer() {
         if (isFocusing) {
-            mainActivity.setupFocusingTimerView();
+            MainActivity.setupFocusingTimerView();
         } else {
-            mainActivity.setupRestTimerView();
+            MainActivity.setupRestTimerView();
         }
     }
 
@@ -238,7 +236,7 @@ public class Bridge {
             mRound++;
         } else {
             clearAttributes();
-            mainActivity.finishTimer();
+            MainActivity.finishTimer();
         }
     }
 
@@ -266,7 +264,7 @@ public class Bridge {
      */
     public void resetOrStart() {
         if (isRest) {
-            mainActivity.setStopButton();
+            MainActivity.setStopButton();
             setStartTimer();
             isRest = false;
         } else { // если не идет отдых, то очищаем все атрибуты
@@ -279,17 +277,17 @@ public class Bridge {
      */
     public void clearAttributes() {
         // устанавливаем текст с названием этапа
-        mainActivity.setStageText("Нажми кнопку старта для запуска");
+        MainActivity.setStageText("Нажми кнопку старта для запуска");
         // меняем иконку кнопки сброса или запуска таймера на плей
-        mainActivity.setStartButton();
+        MainActivity.setStartButton();
         // обнуляем прогресс-бар
-        mainActivity.setProgressBar(0);
+        MainActivity.setProgressBar(0);
         // обнуляем текст таймера
-        mainActivity.updateTimerText("0");
+        MainActivity.updateTimerText("0");
         // сбрасываем номер раунда
         mRound = 1;
         // устанавливаем текст с номером раунда
-        mainActivity.setStageNumber(getRounds());
+        MainActivity.setStageNumber(getRounds());
 
         // останавливаем все таймеры, если они запущены
         stopAllTimers();
