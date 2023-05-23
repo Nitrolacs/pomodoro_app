@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         bridge = Bridge.getBridge();
         setContentView(binding.getRoot());
 
+        binding.buttonStop.setOnClickListener(v -> bridge.resetOrStart());
+
         binding.sideBarButton.setOnClickListener(v ->
                 binding.drawerLayout.openDrawer(GravityCompat.START));
 
@@ -76,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
         // Set Rounds Text
         binding.studyStageNumber.setText(bridge.getRounds());
         bridge.setStartTimer();
-
-        // Reset Button
-        binding.buttonStop.setOnClickListener(v -> bridge.resetOrStart());
     }
 
     public static void setupFocusingTimerView() {

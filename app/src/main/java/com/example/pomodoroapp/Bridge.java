@@ -2,6 +2,7 @@ package com.example.pomodoroapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,7 @@ public class Bridge {
 
     public void setFocusingTimer() {
         if (focusTimer != null) {
-            focusTimer.finish();
+            focusTimer.stop();
         }
 
         focusTimer = new FocusTimer(focusMinutes.longValue());
@@ -161,7 +162,7 @@ public class Bridge {
 
     public void setRestTimer() {
         if (restTimer != null) {
-            restTimer.finish();
+            restTimer.stop();
         }
 
         restTimer = new RestTimer(restMinutes.longValue());
