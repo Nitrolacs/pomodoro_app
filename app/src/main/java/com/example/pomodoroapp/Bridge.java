@@ -37,6 +37,9 @@ public class Bridge {
 
     private String[] namesArray;
 
+    private List<String> configurationNames;
+    private List<String> configurationParameters;
+
     /**
      * Статический метод для получения единственного экземпляра класса мостика.
      */
@@ -65,14 +68,25 @@ public class Bridge {
         Map<String, ?> allEntries = sharedPreferences.getAll();
 
         // создаем список для хранения названий конфигураций
-        List<String> configurationNames = new ArrayList<>();
+        configurationNames = new ArrayList<>();
+        configurationParameters = new ArrayList<>();
 
         // перебираем все записи и добавляем в список только те ключи, которые заканчиваются на "_focusingTime"
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             String key = entry.getKey();
             if (key.endsWith(endsWith)) {
+                String name = key.substring(0, key.length() - 13);
                 // убираем суффикс "_focusingTime" и добавляем в список
-                configurationNames.add(key.substring(0, key.length() - 13));
+                configurationNames.add(name);
+
+                // получаем значения параметров по ключам
+                String focusingTime = sharedPreferences.getString(name + "_focusingTime", "0");
+                String restTime = sharedPreferences.getString(name + "_restTime", "0");
+                String roundsNumber = sharedPreferences.getString(name + "_roundsNumber", "0");
+                // формируем строку с параметрами
+                String parameters = focusingTime + ":" + restTime + ":" + roundsNumber;
+                // добавляем строку в список параметров
+                configurationParameters.add(parameters);
             }
         }
 
@@ -81,6 +95,23 @@ public class Bridge {
 
         // преобразуем список в массив строк и возвращаем его
         return namesArray;
+    }
+
+    public void deleteConfiguration(String name) {
+        // получаем редактор SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        // удаляем все ключи, связанные с названием конфигурации
+        editor.remove(name + "_focusingTime");
+        editor.remove(name + "_restTime");
+        editor.remove(name + "_roundsNumber");
+        // применяем изменения
+        editor.apply();
+
+        configurationNames.remove(name);
+    }
+
+    public List<String> getConfigurationsParameters() {
+        return configurationParameters;
     }
 
     public void getSelectedConfiguration(int numberOfConfiguration) {
