@@ -110,6 +110,26 @@ public class Bridge {
         configurationNames.remove(name);
     }
 
+    public boolean saveConfigurationSettings(String fileName, String endsWith, Context context,
+                                             String configurationName, String focusingTime,
+                                             String restTime, String roundsNumber) {
+        sharedPreferences = context.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if (sharedPreferences.contains(configurationName + endsWith)) {
+            return false;
+        }
+
+        // use configurationName as a prefix for other keys
+        editor.putString(configurationName + "_focusingTime", focusingTime);
+        editor.putString(configurationName + "_restTime", restTime);
+        editor.putString(configurationName + "_roundsNumber", roundsNumber);
+        editor.apply();
+
+        return true;
+    }
+
     public List<String> getConfigurationsParameters() {
         return configurationParameters;
     }

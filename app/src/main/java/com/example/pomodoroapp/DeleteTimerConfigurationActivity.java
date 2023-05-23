@@ -1,27 +1,16 @@
 package com.example.pomodoroapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.pomodoroapp.databinding.ActivityDeleteTimerConfigurationBinding;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Класс для удаления конфигураций таймера
@@ -63,7 +52,7 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
         builder.setPositiveButton("Да", (dialog, which) -> {
             // вызываем метод для удаления записи из SharedPreferences
             bridge.deleteConfiguration(name);
-            adapter.notifyDataSetChanged();
+            startMainActivity();
         });
 
         // устанавливаем кнопку Нет и слушатель нажатия на нее
@@ -105,15 +94,11 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
 
         binding.backButton.setOnClickListener(v -> startMainActivity());
 
-
-        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // получаем название конфигурации по позиции
-                String name = adapter.getItem(position);
-                // вызываем метод для показа диалога с подтверждением удаления и передаем ему позицию элемента
-                showDeleteDialog(name);
-            }
+        binding.listView.setOnItemClickListener((parent, view, position, id) -> {
+            // получаем название конфигурации по позиции
+            String name = adapter.getItem(position);
+            // вызываем метод для показа диалога с подтверждением удаления и передаем ему позицию элемента
+            showDeleteDialog(name);
         });
     }
 }

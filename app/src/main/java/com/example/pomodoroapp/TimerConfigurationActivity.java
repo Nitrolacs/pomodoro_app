@@ -1,10 +1,7 @@
 package com.example.pomodoroapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +41,8 @@ public class TimerConfigurationActivity extends AppCompatActivity {
      * Количество циклов
      */
     private static String roundsNumber;
+
+    private static Bridge bridge;
 
     /**
      * Запускает Activity с фокусировочным таймером
@@ -136,29 +135,17 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         }
     }
 
-    private boolean saveConfigurationSettings() {
-        SharedPreferences sp = getSharedPreferences("ConfigurationsPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
+    private void saveConfiguration() {
 
-        // check if configurationName already exists
-        if (sp.contains(configurationName + "_focusingTime")) {
-            // show an error message and return
+        if (bridge.saveConfigurationSettings("ConfigurationsPrefs", "_focusingTime",
+                this, configurationName, focusingTime, restTime, roundsNumber)) {
+            Toast.makeText(TimerConfigurationActivity.this, "Конфигурация сохранена!",
+                    Toast.LENGTH_LONG).show();
+        } else {
             Toast.makeText(TimerConfigurationActivity.this, "Такое название уже существует!",
                     Toast.LENGTH_LONG).show();
             binding.fieldConfigurationName.setError("Такое название уже занято");
-            return false;
         }
-
-        // use configurationName as a prefix for other keys
-        editor.putString(configurationName + "_focusingTime", focusingTime);
-        editor.putString(configurationName + "_restTime", restTime);
-        editor.putString(configurationName + "_roundsNumber", roundsNumber);
-        editor.commit();
-
-        Toast.makeText(TimerConfigurationActivity.this, "Конфигурация сохранена!",
-                Toast.LENGTH_LONG).show();
-
-        return true;
     }
 
 
@@ -169,20 +156,16 @@ public class TimerConfigurationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityTimerConfigurationBinding.inflate(getLayoutInflater());
+        bridge = Bridge.getBridge();
         setContentView(binding.getRoot());
 
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMainActivity();
-            }
-        });
+        binding.backButton.setOnClickListener(v -> startMainActivity());
 
         binding.buttonSaveConfiguration.setOnClickListener(v -> {
             getFieldsValues();
 
             if (checkInput()) {
-                saveConfigurationSettings();
+                saveConfiguration();
             }
         });
     }
