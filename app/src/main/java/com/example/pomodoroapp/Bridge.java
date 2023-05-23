@@ -2,7 +2,6 @@ package com.example.pomodoroapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,37 +12,109 @@ import java.util.Map;
  * Реализует паттерн проектирования синглтон.
  */
 public class Bridge {
-    private static Bridge bridge; // единственный экземпляр класса мостика
 
-    private String nameConfiguration = null; // название конфигурации таймера
-    private Integer focusMinutes = null; // длительность фокусировки в миллисекундах
-    private Integer restMinutes = null; // длительность отдыха в миллисекундах
-    private Integer roundsCount = null; // количество раундов
-    private String tmpNameConfiguration = null; // временное название конфигурации таймера
-    private Integer tmpFocusMinutes = null; // временная длительность фокусировки в миллисекундах
-    private Integer tmpRestMinutes = null; // временная длительность отдыха в миллисекундах
-    private Integer tmpRoundsCount = null; // временное количество раундов
-    private int mRound = 1; // текущий раунд
-    private boolean isFocusing = true; // флаг, указывающий на то, что идет фокусировка
-    private boolean isRest = false; // флаг, указывающий на то, что идет отдых
+    /**
+     * Единственный экземпляр класса мостика
+     */
+    private static Bridge bridge;
 
+    /**
+     * Название конфигурации таймера
+     */
+    private String nameConfiguration = null;
 
-    private FocusTimer focusTimer; // переменная для таймера фокусировки
-    private RestTimer restTimer; // переменная для таймера отдыха
-    private StartTimer startTimer; // переменная для таймера подготовки
+    /**
+     * Длительность фокусирования в миллисекундах
+     */
+    private Integer focusMinutes = null;
 
+    /**
+     * Длительность отдыха в миллисекундах
+     */
+    private Integer restMinutes = null;
 
+    /**
+     * Количество раундов фокусирования
+     */
+    private Integer roundsCount = null;
+
+    /**
+     * Временное название конфигурации таймера
+     */
+    private String tmpNameConfiguration = null;
+
+    /**
+     * Временная длительность фокусировки в миллисекундах
+     */
+    private Integer tmpFocusMinutes = null;
+
+    /**
+     * Временная длительность отдыха в миллисекундах
+     */
+    private Integer tmpRestMinutes = null;
+
+    /**
+     * Временное количество раундов
+     */
+    private Integer tmpRoundsCount = null;
+
+    /**
+     * Текущий раунд (по умолчанию 1)
+     */
+    private int mRound = 1;
+
+    /**
+     * Флаг, указывающий на то, что идет фокусировка
+     */
+    private boolean isFocusing = true;
+
+    /**
+     * Флаг, указывающий на то, что идет отдых
+     */
+    private boolean isRest = false;
+
+    /**
+     * Таймер фокусировки
+     */
+    private FocusTimer focusTimer;
+
+    /**
+     * Таймер отдыха
+     */
+    private RestTimer restTimer;
+
+    /**
+     * Таймер подготовки
+     */
+    private StartTimer startTimer;
+
+    /**
+     * Класс хранилище
+     */
     private SharedPreferences sharedPreferences;
 
+    /**
+     * Редактор хранилища
+     */
     private SharedPreferences.Editor editor;
 
+    /**
+     * Массив названия конфигураций
+     */
     private String[] namesArray;
 
+    /**
+     * Список названий конфигураций
+     */
     private List<String> configurationNames;
+
+    /**
+     * Список параметров конфигураций
+     */
     private List<String> configurationParameters;
 
     /**
-     * Статический метод для получения единственного экземпляра класса мостика.
+     * Получает единственный экземпляр класса мостика.
      */
     public static synchronized Bridge getBridge() {
         if (bridge == null) { // если экземпляр еще не создан, то создаем его
@@ -59,7 +130,11 @@ public class Bridge {
     }
 
     /**
-     * Метод для получения списка названий конфигураций таймера из SharedPreferences.
+     * ПОлучает список названий конфигураций таймера из SharedPreferences.
+     * @param fileName Название файла
+     * @param endsWith Окончание ключа
+     * @param context Контекст
+     * @return Массив названий конфигураций
      */
     public String[] getConfigurationNames(String fileName, String endsWith, Context context) {
         // получаем SharedPreferences
@@ -99,6 +174,10 @@ public class Bridge {
         return namesArray;
     }
 
+    /**
+     * Удаляет конфигурацию
+     * @param name Название удаляемой конфигурации
+     */
     public void deleteConfiguration(String name) {
         // получаем редактор SharedPreferences
         editor = sharedPreferences.edit();
@@ -112,6 +191,17 @@ public class Bridge {
         configurationNames.remove(name);
     }
 
+    /**
+     * Сохранение новой конфигурации
+     * @param fileName Название файла
+     * @param endsWith Окончание ключа
+     * @param context Контекст
+     * @param configurationName Название конфигурации
+     * @param focusingTime Время фокусирования
+     * @param restTime Время отдыха
+     * @param roundsNumber Количество раундов фокусирования
+     * @return Успешность сохранения
+     */
     public boolean saveConfigurationSettings(String fileName, String endsWith, Context context,
                                              String configurationName, String focusingTime,
                                              String restTime, String roundsNumber) {
@@ -123,7 +213,6 @@ public class Bridge {
             return false;
         }
 
-        // use configurationName as a prefix for other keys
         editor.putString(configurationName + "_focusingTime", focusingTime);
         editor.putString(configurationName + "_restTime", restTime);
         editor.putString(configurationName + "_roundsNumber", roundsNumber);
@@ -132,10 +221,18 @@ public class Bridge {
         return true;
     }
 
+    /**
+     * Возвращает параметры конфигураций
+     * @return Список параметров конфигураций
+     */
     public List<String> getConfigurationsParameters() {
         return configurationParameters;
     }
 
+    /**
+     * Получает данные выбранной конфигурации
+     * @param numberOfConfiguration Номер конфигурации
+     */
     public void getSelectedConfiguration(int numberOfConfiguration) {
         // получаем выбранное название конфигурации
         tmpNameConfiguration = namesArray[numberOfConfiguration];
@@ -152,6 +249,10 @@ public class Bridge {
                 "0"));
     }
 
+    /**
+     * Проверяет возможность сохранить конфигурацию
+     * @return Возможность сохранения
+     */
     public boolean saveSelectedConfiguration() {
         if (tmpNameConfiguration == null) {
             return false;
@@ -164,17 +265,32 @@ public class Bridge {
         }
     }
 
+    /**
+     * Получает значение темной темы из файла
+     * @param name Название файла
+     * @param key Ключ
+     * @param context Контекст
+     * @return Значение темы
+     */
     public boolean getNightModeBoolean(String name, String key, Context context) {
         sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, false);
     }
 
+    /**
+     * Сохраняет выбранную тему
+     * @param key Ключ
+     * @param value Значение
+     */
     public void saveNightModeBoolean(String key, boolean value) {
         editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.apply();
     }
 
+    /**
+     * Очищает временные поля
+     */
     public void resetTmpFields() {
         tmpNameConfiguration = null; // обнуляем временное название конфигурации таймера
         tmpFocusMinutes = null; // обнуляем временную длительность фокусировки в миллисекундах
@@ -183,7 +299,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для подготовки таймера к запуску.
+     * Подготавливает таймер
      */
     public void timerPreparation() {
         isFocusing = true; // устанавливаем флаг фокусировки в true
@@ -192,7 +308,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для остановки всех таймеров, если они запущены.
+     * Останавливает таймеры, если они запущены
      */
     public void stopAllTimers() {
         if (restTimer != null) { // если таймер отдыха запущен, то останавливаем его
@@ -206,15 +322,25 @@ public class Bridge {
         }
     }
 
+    /**
+     * Возвращает текстовое представление текущего раунда фокусирования
+     * @return Текущий раунд
+     */
     public String getRounds() {
         return mRound + "/" + roundsCount;
     }
 
+    /**
+     * Создаёт и запускает таймер подготовки
+     */
     public void setStartTimer() {
         startTimer = new StartTimer(5000);
         startTimer.start();
     }
 
+    /**
+     * Создаёт и запускает таймер фокусирования
+     */
     public void setFocusingTimer() {
         if (focusTimer != null) {
             focusTimer.stop();
@@ -224,6 +350,9 @@ public class Bridge {
         focusTimer.start();
     }
 
+    /**
+     * Создаёт и запускает таймер отдыха
+     */
     public void setRestTimer() {
         if (restTimer != null) {
             restTimer.stop();
@@ -233,10 +362,9 @@ public class Bridge {
         restTimer.start();
     }
 
-
     /**
-     * Метод для установки текста с названием этапа.
-     * @param text строка с названием этапа.
+     * Устанавливает текст с названием этапа
+     * @param text Строка с названием этапа.
      */
     public void setStageText(String text) {
         // устанавливаем текст с названием этапа
@@ -244,7 +372,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для обновления прогресс-бара при каждом тике таймера фокусировки или отдыха.
+     * Обновляет прогресс бар при каждом тике таймера
      * @param seconds оставшееся время в секундах.
      */
     public void setProgressBar(int seconds) {
@@ -252,12 +380,16 @@ public class Bridge {
         MainActivity.setProgressBar(seconds);
     }
 
+    /**
+     * Устанавливает цифру с текущим этапом
+     * @param text Значение, которое будет установлено
+     */
     public void setStageNumber(String text) {
         MainActivity.setStageNumber(text);
     }
 
     /**
-     * Метод для установки максимального значения прогресс-бара.
+     * Устанавливает максимальное значенеи прогресс-бара
      * @param max максимальное значение прогресс-бара в секундах.
      */
     public void setMaxProgressBar(int max) {
@@ -266,13 +398,16 @@ public class Bridge {
     }
 
     /**
-     * Метод для обновления текста таймера при каждом тике таймера фокусировки или отдыха.
+     * Обновляет текст таймера при каждом тике таймера фокусировки или отдыха.
      * @param timeLabel строка с оставшимся временем в формате mm:ss.
      */
     public void updateTimerText(String timeLabel) {
         MainActivity.updateTimerText(timeLabel);
     }
 
+    /**
+     * Проверяет текущий таймер
+     */
     public void checkCurrentTimer() {
         if (isFocusing) {
             MainActivity.setupFocusingTimerView();
@@ -281,6 +416,9 @@ public class Bridge {
         }
     }
 
+    /**
+     * Выполняет действия после окончания таймера фокусирования
+     */
     public void actionsAfterFocusing() {
         if (isLastRound()) {
             isFocusing = false;
@@ -293,7 +431,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для конвертации числа секунд в строку в формате mm:ss.
+     * Конвертирует число секунд в строку в формате mm:ss.
      * @param time число секунд.
      * @return строка в формате mm:ss.
      */
@@ -312,7 +450,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для сброса или запуска таймера.
+     * Сбрасывает либо запускает таймер
      */
     public void resetOrStart() {
         if (isRest) {
@@ -325,7 +463,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для очистки всех атрибутов в классе мостика и на экране.
+     * Очищает все атрибуты в классе мостика и на экране.
      */
     public void clearAttributes() {
         // устанавливаем текст с названием этапа
@@ -348,24 +486,31 @@ public class Bridge {
         isRest = true;
     }
 
+    /**
+     * Устанавливает фокусирование
+     */
     public void setFocusing() {
         isFocusing = true;
     }
 
     /**
-     * Метод для проверки, является ли текущий раунд последним.
+     * Проверяет, является ли текущий раунд последним.
      * @return true, если текущий раунд последний, false - в противном случае.
      */
     public boolean isLastRound() {
         return mRound < roundsCount;
     }
 
+    /**
+     * Возвращает состояние отдыха
+     * @return
+     */
     public boolean isRest() {
         return isRest;
     }
 
     /**
-     * Метод для получения длительности фокусировки в миллисекундах.
+     * Получает длительность фокусировки в миллисекундах.
      * @return длительность фокусировки в миллисекундах.
      */
     public Integer getFocusMinutes() {
@@ -373,7 +518,7 @@ public class Bridge {
     }
 
     /**
-     * Метод для получения длительности отдыха в миллисекундах.
+     * Получает длительность отдыха в миллисекундах.
      * @return длительность отдыха в миллисекундах.
      */
     public Integer getRestMinutes() {
