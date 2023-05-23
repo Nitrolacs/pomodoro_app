@@ -19,11 +19,19 @@ import com.example.pomodoroapp.databinding.ActivityMainBinding;
  * Главная Activity с таймером
  */
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * Доступ к интерфейсу
+     */
     private static ActivityMainBinding binding;
+
+    /**
+     * Мостик
+     */
     private static Bridge bridge;
 
     /**
-     * Метод, вызываемый при создании Activity
+     * Вызывается при создании Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Метод для перехода на новую Activity
+     * Переходит на новую Activity
      * @param cls Класс новой Activity
      */
     private void transitionToNewActivity(Class<?> cls) {
@@ -66,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Устанавливает настроки таймера
+     */
     private void timerEnvironmentSetting() {
         if (bridge.isRest()) {
             setStopButton();
@@ -74,43 +85,71 @@ public class MainActivity extends AppCompatActivity {
         setupStartTimerView();
     }
 
+    /**
+     * Подготавливает таймер запуска
+     */
     private void setupStartTimerView() {
-        // Set Rounds Text
         binding.studyStageNumber.setText(bridge.getRounds());
         bridge.setStartTimer();
     }
 
+    /**
+     * Подготавливает таймер фокусирования
+     */
     public static void setupFocusingTimerView() {
         setStageNumber(bridge.getRounds());
         bridge.setFocusingTimer();
     }
 
+    /**
+     * Подготавливает таймер отдыха
+     */
     public static void setupRestTimerView() {
         bridge.setRestTimer();
     }
 
+    /**
+     * Устанавливает текст текущего раунда
+     * @param text Устанавливаемое значение
+     */
     public static void setStageText(String text) {
         binding.studyStageText.setText(text);
     }
 
+    /**
+     * Обновляет прогресс бар
+     * @param seconds Количество секунд
+     */
     public static void setProgressBar(int seconds) {
         binding.progressBar.setProgress(seconds);
     }
 
+    /**
+     * Устанавливает максимальное значение прогресс-бара
+     * @param max Максимальное значение
+     */
     public static void setMaxProgressBar(int max) {
         binding.progressBar.setMax(max);
     }
 
+    /**
+     * Устанавливает число текущего раунда
+     * @param text Устанавливаемое значение
+     */
     public static void setStageNumber(String text) {
         binding.studyStageNumber.setText(text);
     }
 
+    /**
+     * Обновляет текст таймера
+     * @param timeLabel Устанавливаемое значение
+     */
     public static void updateTimerText(String timeLabel) {
         binding.timer.setText(timeLabel);
     }
 
     /**
-     * Вызов диалога
+     * Показывает диалго выбора конфигурации
      */
     private void showSettingsDialog() {
 
@@ -125,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         View layout = inflater.inflate(R.layout.dialog_with_spinner, null);
 
         // находим Spinner в разметке
-        Spinner spinner = (Spinner) layout.findViewById(R.id.spinner);
+        Spinner spinner = layout.findViewById(R.id.spinner);
 
         // создаем адаптер для Spinner с массивом названий конфигураций
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -178,14 +217,23 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Устанавливает иконку кнопки стоп
+     */
     public static void setStopButton() {
         binding.buttonStop.setImageResource(R.drawable.ic_stop);
     }
 
+    /**
+     * Устанавливает иконку кнопки старт
+     */
     public static void setStartButton() {
         binding.buttonStop.setImageResource(R.drawable.ic_play);
     }
 
+    /**
+     * Выводит текст по завершению всех таймеров
+     */
     public static void finishTimer() {
         binding.studyStageText.setText("Вы закончили все циклы :)");
     }

@@ -42,6 +42,9 @@ public class TimerConfigurationActivity extends AppCompatActivity {
      */
     private static String roundsNumber;
 
+    /**
+     * Мостик
+     */
     private static Bridge bridge;
 
     /**
@@ -135,6 +138,9 @@ public class TimerConfigurationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Сохраняет конфигурацию
+     */
     private void saveConfiguration() {
 
         if (bridge.saveConfigurationSettings("ConfigurationsPrefs", "_focusingTime",
@@ -147,7 +153,6 @@ public class TimerConfigurationActivity extends AppCompatActivity {
             binding.fieldConfigurationName.setError("Такое название уже занято");
         }
     }
-
 
     /**
      * Вызывается при создании TimerConfigurationActivity

@@ -5,22 +5,37 @@ package com.example.pomodoroapp;
  */
 class StartTimer extends Timer {
 
-    private final Bridge bridge; // экземпляр класса мостика
+    /**
+     * Мостик
+     */
+    private final Bridge bridge;
 
+    /**
+     * Конструктор
+     * @param duration Продолжительность таймера
+     */
     public StartTimer(long duration) {
         super(duration);
         bridge = Bridge.getBridge(); // инициализируем экземпляр класса мостика
     }
 
+    /**
+     * Отправление запросов настройки интерфейса перед запуском таймера
+     */
     @Override
     protected void prepare() {
         bridge.setStageText("Приготовьтесь");
         // обнуляем прогресс-бар
         bridge.setProgressBar(0);
-        // устанавливаем максимальное значение прогресс-бара равное длительности таймера подготовки в секундах
+        // устанавливаем максимальное значение прогресс-бара равное
+        // длительности таймера подготовки в секундах
         bridge.setMaxProgressBar(5);
     }
 
+    /**
+     * Обновление интерфейса при каждом тике
+     * @param millisUntilFinished оставшееся время в миллисекундах.
+     */
     @Override
     protected void tick(long millisUntilFinished) {
         // устанавливаем текущее значение прогресс-бара равное оставшемуся времени в секундах
@@ -29,6 +44,9 @@ class StartTimer extends Timer {
         bridge.updateTimerText(String.valueOf(millisUntilFinished / 1000));
     }
 
+    /**
+     * Выполнение действий после завершения таймера
+     */
     @Override
     protected void finish() {
         bridge.checkCurrentTimer();

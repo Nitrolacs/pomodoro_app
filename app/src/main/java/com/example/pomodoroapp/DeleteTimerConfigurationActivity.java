@@ -18,10 +18,13 @@ import java.util.Arrays;
 public class DeleteTimerConfigurationActivity extends AppCompatActivity {
 
     /**
-     * Переменная для доступа к элементам Activity
+     * Поле для доступа к элементам Activity
      */
     private ActivityDeleteTimerConfigurationBinding binding;
 
+    /**
+     * Мост
+     */
     private static Bridge bridge;
 
     /**
@@ -30,7 +33,7 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
     /**
-     * Переход на главную Activity
+     * Переходит на главную Activity
      */
     private void startMainActivity() {
         Intent intent = new Intent(DeleteTimerConfigurationActivity.this, MainActivity.class);
@@ -39,7 +42,7 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
     }
 
     /**
-     * Метод для показа диалога с подтверждением удаления
+     * Показывает диалог с подтверждением удаления
      * @param name Название удаляемой конфигурации
      */
     private void showDeleteDialog(String name) {
@@ -67,7 +70,7 @@ public class DeleteTimerConfigurationActivity extends AppCompatActivity {
     }
 
     /**
-     * Метод, вызываемый при создании Activity
+     * Вызывается при создании Activity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

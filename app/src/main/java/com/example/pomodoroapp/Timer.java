@@ -6,9 +6,21 @@ import android.os.CountDownTimer;
  * Абстрактный класс таймера с шаблонным методом start()
  */
 public abstract class Timer {
-    protected CountDownTimer countDownTimer; // таймер обратного отсчета
-    protected long duration; // длительность таймера в миллисекундах
 
+    /**
+     * Таймер обратного отсчета
+     */
+    protected CountDownTimer countDownTimer;
+
+    /**
+     * Длительность таймера в миллисекундах
+     */
+    protected long duration;
+
+    /**
+     * Конструктор
+     * @param duration длительность в миллисекундах
+     */
     public Timer(long duration) {
         this.duration = duration;
     }
@@ -33,26 +45,26 @@ public abstract class Timer {
     }
 
     /**
-     * Метод для подготовки таймера к запуску.
+     * Подготавливает таймер к запуску.
      * Должен быть реализован в подклассах.
      */
     protected abstract void prepare();
 
     /**
-     * Метод для обновления состояния таймера при каждом тике.
+     * Обновляет состояние таймера при каждом тике.
      * Должен быть реализован в подклассах.
      * @param millisUntilFinished оставшееся время в миллисекундах.
      */
     protected abstract void tick(long millisUntilFinished);
 
     /**
-     * Метод для завершения работы таймера.
+     * Завершает работу таймера.
      * Должен быть реализован в подклассах.
      */
     protected abstract void finish();
 
     /**
-     * Метод для остановки таймера.
+     * Останавливает таймер
      */
     public void stop() {
         if (countDownTimer != null) {
