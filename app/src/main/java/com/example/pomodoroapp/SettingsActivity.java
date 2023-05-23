@@ -1,28 +1,17 @@
 package com.example.pomodoroapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Switch;
-
-import com.example.pomodoroapp.databinding.ActivityDeleteTimerConfigurationBinding;
 import com.example.pomodoroapp.databinding.ActivitySettingsBinding;
 
 /**
  * Класс настроек
  */
 public class SettingsActivity extends AppCompatActivity {
-
-    private ActivitySettingsBinding binding;
-    private boolean nightMode;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     private void startMainActivity() {
         Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
@@ -33,39 +22,28 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        com.example.pomodoroapp.databinding.ActivitySettingsBinding binding =
+                ActivitySettingsBinding.inflate(getLayoutInflater());
+        Bridge bridge = Bridge.getBridge();
         setContentView(binding.getRoot());
 
-        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        nightMode = sharedPreferences.getBoolean("night", false);
+        boolean nightMode = bridge.getNightModeBoolean("MODE", "night", this);
 
         if (nightMode) {
             binding.switcher.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
-        binding.switcher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (nightMode) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night", false);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night", true);
-                }
-                editor.apply();
+        binding.switcher.setOnClickListener(v -> {
+            if (nightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                bridge.saveNightModeBoolean("night", false);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                bridge.saveNightModeBoolean("night", true);
             }
         });
 
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMainActivity();
-            }
-        });
+        binding.backButton.setOnClickListener(v -> startMainActivity());
     }
 }

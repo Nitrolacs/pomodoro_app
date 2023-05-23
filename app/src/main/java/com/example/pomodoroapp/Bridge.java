@@ -35,6 +35,8 @@ public class Bridge {
 
     private SharedPreferences sharedPreferences;
 
+    private SharedPreferences.Editor editor;
+
     private String[] namesArray;
 
     private List<String> configurationNames;
@@ -99,7 +101,7 @@ public class Bridge {
 
     public void deleteConfiguration(String name) {
         // получаем редактор SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
         // удаляем все ключи, связанные с названием конфигурации
         editor.remove(name + "_focusingTime");
         editor.remove(name + "_restTime");
@@ -115,7 +117,7 @@ public class Bridge {
                                              String restTime, String roundsNumber) {
         sharedPreferences = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
 
         if (sharedPreferences.contains(configurationName + endsWith)) {
             return false;
@@ -160,6 +162,17 @@ public class Bridge {
             roundsCount = tmpRoundsCount;
             return true;
         }
+    }
+
+    public boolean getNightModeBoolean(String name, String key, Context context) {
+        sharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public void saveNightModeBoolean(String key, boolean value) {
+        editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
     }
 
     public void resetTmpFields() {
