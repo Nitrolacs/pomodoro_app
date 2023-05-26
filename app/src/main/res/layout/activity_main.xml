@@ -98,37 +98,18 @@
             android:scaleType="fitXY"
             style="@style/SMALLCIRCLE"
             android:src="@drawable/ic_stop" />
-        
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="100sp"
             android:layout_height="50sp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             style="@style/BUTTON"
             android:background="@drawable/bottom_menu_bg"
-            android:layout_marginHorizontal="60sp"
-            android:layout_marginBottom="20sp">
-    
-    
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/transparent"
-                android:layout_marginHorizontal="15sp"
-                android:contentDescription="sound_on"
-                app:srcCompat="@drawable/sound_on" />
-    
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/transparent"
-                android:contentDescription="notifications_on"
-                app:srcCompat="@drawable/notifications_on" />
-    
+            android:layout_marginBottom="20sp"
+            android:layout_centerHorizontal="true">
+
+
             <ImageButton
                 android:id="@+id/timer_settings"
                 android:layout_width="wrap_content"

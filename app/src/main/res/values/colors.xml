@@ -4,8 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#3F51B5</color>
     <color name="bg">#1B998B</color>
-    <color name="dark_theme">#417B5A</color>
+    <color name="dark_theme">#40343A</color>
     <color name="light_gray">#C4C4C4</color>
-    <color name="dark_red">#931621</color>
+    <color name="dark_red">#065A82</color>
 
 </resources>

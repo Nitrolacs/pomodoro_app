@@ -19,11 +19,6 @@ public class Bridge {
     private static Bridge bridge;
 
     /**
-     * Название конфигурации таймера
-     */
-    private String nameConfiguration = null;
-
-    /**
      * Длительность фокусирования в миллисекундах
      */
     private Integer focusMinutes = null;
@@ -130,7 +125,7 @@ public class Bridge {
     }
 
     /**
-     * ПОлучает список названий конфигураций таймера из SharedPreferences.
+     * Получает список названий конфигураций таймера из SharedPreferences.
      * @param fileName Название файла
      * @param endsWith Окончание ключа
      * @param context Контекст
@@ -257,7 +252,7 @@ public class Bridge {
         if (tmpNameConfiguration == null) {
             return false;
         } else {
-            nameConfiguration = tmpNameConfiguration;
+
             focusMinutes = tmpFocusMinutes;
             restMinutes = tmpRestMinutes;
             roundsCount = tmpRoundsCount;
@@ -389,7 +384,7 @@ public class Bridge {
     }
 
     /**
-     * Устанавливает максимальное значенеи прогресс-бара
+     * Устанавливает максимальное значение прогресс-бара
      * @param max максимальное значение прогресс-бара в секундах.
      */
     public void setMaxProgressBar(int max) {
@@ -503,7 +498,7 @@ public class Bridge {
 
     /**
      * Возвращает состояние отдыха
-     * @return
+     * @return Состояние отдыха
      */
     public boolean isRest() {
         return isRest;
