@@ -39,14 +39,14 @@
 
 ## Скриншоты приложения
 
-![Скриншот 1](screenshot_1.png)
+![Скриншот 1](references/screenshot_1.png)
 
-![Скриншот_2](screenshot_2.png)
+![Скриншот_2](references/screenshot_2.png)
 
-![Скриншот_3](screenshot_3.png)
+![Скриншот_3](references/screenshot_3.png)
 
-![Скриншот_4](screenshot_4.png)
+![Скриншот_4](references/screenshot_4.png)
 
-![Скриншот_5](screenshot_5.png)
+![Скриншот_5](references/screenshot_5.png)
 
-![Скриншот_6](screenshot_6.png)
+![Скриншот_6](references/screenshot_6.png)
